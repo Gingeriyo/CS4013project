@@ -12,6 +12,9 @@ public class Student {
     private String addressLine2;
     private String addressLine3;
     private String addressLine4;
+    private String eircode;
     private int studentID;
     private boolean currentStudent = true;
+
+    
 }
