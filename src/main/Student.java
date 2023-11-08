@@ -1,3 +1,4 @@
+package main;
 public class Student {
     // Personal information about the Student.
     // These can be changed if the student is logged in.

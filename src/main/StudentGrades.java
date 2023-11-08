@@ -1,3 +1,4 @@
+package main;
 public class StudentGrades extends Student {
     // This holds objects of each semester.
     // Stored in years (represented as YYYY/YY).
