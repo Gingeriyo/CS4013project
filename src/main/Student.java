@@ -16,5 +16,7 @@ public class Student {
     private int studentID;
     private boolean currentStudent = true;
 
-    
+    public Student(int IDinput) {
+        
+    }
 }
