@@ -43,39 +43,6 @@ public class Student {
                 "\n",
                 currentDate, studentID, title, firstName, lastName, addressLine1, addressLine2, addressLine3, phoneNumber, addressLine4
         );
-        /*
-        // removed from the above String.format because
-        // batch? advisor? can we remove these?
-                " Status     Current Student                                 Batch      23BSCGDEUFA\n" +
-                " Course     COMPUTER GAMES DEVELOPMENT                      Advisor\n" +
-                " Programme  Computer Games Development                      Award\n" +
-                " Route      Computer Games Development                      Class",
-
-         */
-
-        /*
-        // string.format will not work for this section of the transcript
-        semesterTranscript = String.format(
-                "+--------------------------------------------------------------------------------------------+---------------------------+\n" +
-                "|2022/3         SEM1          Part   1                                                      |            Session To-Date|\n" +
-                "|                                                                                            |                           |\n" +
-                "|Module       Title                                Block11      Regn Type  Grade   Credits   |Factor      1.000          |\n" +
-                "|                                                                                            |Att Hrs     30.00   30.00  |\n" +
-                "|CS4012       REPRESENTATION AND MODELLING                        N             B2   6       |Cred Hours  30.00   30.00  |\n" +
-                "|CS4141       INTRODUCTION TO PROGRAMMING                         N             A2   6       |Non-Q hours 0.00    0.00   |\n" +
-                "|CS4221       FOUNDATIONS OF COMPUTER SCIENCE 1                   N             B1   6       |QCS         91.20   91.20  |\n" +
-                "|ET4011       FUNDAMENTALS OF COMPUTER ORGANISATION               N             B2   6       |QCA         3.04    3.04   |\n" +
-                "|MS4111       DISCRETE MATHEMATICS 1                              N             C2   6       |                           |\n" +
-                "|                                                                                            |                           |\n" +
-                "|                                                                                            |                           |\n" +
-                "|                                                                                            |                           |\n" +
-                "|                                                                                            |                           |\n" +
-                "|                                                                                            |                           |\n" +
-                "|                                                                                            |                           |\n" +
-                "+--------------------------------------------------------------------------------------------+---------------------------+"
-        );
-
-         */
 
         return transcript;
     }

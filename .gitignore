@@ -23,3 +23,4 @@
 # Dealing with Mac users
 .DS_Store
 
+/out/
