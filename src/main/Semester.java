@@ -4,6 +4,7 @@ import java.util.*;
 
 public class Semester {
     private int attendedHours;
+    private int non_QualityHours;
     HashMap<String, Double> Grade = new HashMap<>(){{
         put("A1", 4.0);
         put("A2", 3.6);
@@ -32,17 +33,18 @@ public class Semester {
     public double getGrade(String Name) {
         return this.Grade.get(Name);
     }
-    public double QCACalc(ArrayList<Module> credits,ArrayList <String> Grade, int sumAttended, int nonQ) {
+    public double QCACalc(ArrayList<Module> credits,ArrayList <String> Grade) {
         //very basic implementation
         double result = 0;
         double scale = 0;
-        for(int i =  0; i<Grades.size();i++) {
-            double QCA = (getGrade(Grades.get(i)) * credits.get(i).getCredit()) / (sumAttended - nonQ);
+        double QPV = 0.0;
 
-            result = result+QCA;
+        for(int i =  0; i<Grades.size();i++) {
+            QPV = QPV+ getGrade(Grades.get(i)) * credits.get(i).getCredit();
         }
+        double QCA = QPV/(attendedHours-non_QualityHours);
         scale = Math.pow(10,2);//use this for rounding
-        result = Math.round(result * scale)/scale;
+        result = Math.round(QCA * scale)/scale;
 
         return result;
 
