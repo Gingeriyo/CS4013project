@@ -21,6 +21,15 @@ public class Student {
     private String eircode;
     private int studentID;
     private boolean currentStudent = true;
+    private String currentDate = "13/Nov/2023";
+
+    public String transcript(){
+        String transcript;
+        String semesterTranscript;
+
+        return "";
+    }
+
 
     public Student(int IDinput, String path) throws FileNotFoundException {
         csvScan = new Scanner(new File(path));
