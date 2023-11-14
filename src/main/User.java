@@ -18,7 +18,7 @@ public class User {
         try {
             in = new Scanner(System.in);
             boolean more = true;
-            
+
             while (more) {
                 System.out.println("S)tudent or F)aculty");
                 String command = in.nextLine().toUpperCase();
@@ -26,16 +26,15 @@ public class User {
                 if (command.equals("S")) {
                 System.out.println("Enter StudentID number");
                 String line = in.nextLine();
-                
+
             } else if (command.equals("F")) {
                 System.out.println("Enter First name and Last name");
                 String nameLine = in.nextLine();
-                
+
             }
-            
+
             }
-            
-            
+
 
         } catch (Exception e) {
             // TODO: handle exception

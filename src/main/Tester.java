@@ -10,11 +10,11 @@ public class Tester {
         Module bus = new Module("business",6,"who knows");
         Module economic = new Module("economics",6,"LM121");
         Module databases = new Module("Databases",6,"LM121");
-        sem.addGrade("A1");
-        sem.addGrade("A2");
-        sem.addGrade("A2");
-        sem.addGrade("B3");
-        sem.addGrade("B1");// these are my grades so it should calc 3.44
+        sem.addGrade("C3");
+        sem.addGrade("F");
+        sem.addGrade("C3");
+        sem.addGrade("B2");
+        sem.addGrade("I");// these are my grades so it should calc 3.44
         sem.addModule(maths);
         sem.addModule(intro);
         sem.addModule(bus);
@@ -28,8 +28,8 @@ public class Tester {
         Grades.add("B1");
         ArrayList <java.lang.Module> mods = new ArrayList<>();
 
-        int notattended = 0;
-        double QCA=sem.QCACalc(sem.getCredits(),sem.getGrades(),sem.getAttendedHours(),notattended);
+
+        double QCA=sem.QCACalc(sem.getCredits(),sem.getGrades());
         System.out.println(QCA);
     }
 }

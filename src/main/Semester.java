@@ -53,6 +53,9 @@ public class Semester {
         return Grades;
     }
     public void addGrade(String grade) {
+        if(grade.equals("I")){
+            non_QualityHours = non_QualityHours+6;
+        }
         Grades.add(grade);
     }
 

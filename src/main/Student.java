@@ -34,4 +34,5 @@ public class Student {
     public Student(int IDinput, String path) throws FileNotFoundException {
         csvScan = new Scanner(new File(path));
     }
+
 }
