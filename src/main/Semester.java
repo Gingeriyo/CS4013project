@@ -1,19 +1,16 @@
 package main;
+import java.util.HashMap;
+import java.util.*;
+
 public class Semester {
-    // This class will contain the modules, grades and status
-    // of the modules per semester.
-    // The data from the programme the student os doing determines
-    // how the QCA is calculated.
-
-    //here is a test implement for QCA calculator from eric i can explain it when i see yall but
-    //this might be a nice start to build upon
-    //import java.util.HashMap;
-    //import java.util.*;
-
-/*
-public class Semester {
-
+    private int attendedHours;
     HashMap<String, Double> Grade = new HashMap<>();
+
+
+    ArrayList <String> Grades = new ArrayList<>();
+    ArrayList<Module> mods = new ArrayList<Module>();
+
+
 
 
     {
@@ -33,29 +30,50 @@ public class Semester {
 
 
     }
+
+    public Semester(int attendedHours) {
+        this.attendedHours = attendedHours;
+    }
     public double getGrade(String Name) {
         return this.Grade.get(Name);
     }
-    public double QCACalc(Module credits,String Grade, int sumAttended, int nonQ) {
+    public double QCACalc(ArrayList<Module> credits,ArrayList <String> Grade, int sumAttended, int nonQ) {
         //very basic implementation
-        double s = getGrade(Grade);
-        double QCA = (getGrade(Grade) * credits.getCredits())/ (sumAttended- nonQ);
-        return QCA;
+        double result = 0;
+        double scale = 0;
+        for(int i =  0; i<Grades.size();i++) {
+            double QCA = (getGrade(Grades.get(i)) * credits.get(i).getCredit()) / (sumAttended - nonQ);
+
+            result = result+QCA;
+        }
+        scale = Math.pow(10,2);//use this for rounding
+        result = Math.round(result * scale)/scale;
+
+        return result;
 
     }
-    public class Module {
-        String name;
-        String classCode;
-        int credits;
+    public ArrayList<String> getGrades() {
+        return Grades;
+    }
+    public void addGrade(String grade) {
+        Grades.add(grade);
+    }
 
-        public Module(String name , String classCode, int credits) {
-            this.name = name;
-            this.classCode = classCode;
-            this.credits= credits;
-        }
+    public int getAttendedHours() {
+        return attendedHours;
+    }
 
-        public int getCredits() {
-            return credits;
-        }
- */
+    public ArrayList<Module> getCredits() {
+        return mods;
+    }
+    public void addModule(Module m) {
+        mods.add(m);
+    }
+
+
+    public Semester() {}
+
 }
+
+
+
