@@ -1,61 +1,79 @@
 package main;
+import java.util.HashMap;
+import java.util.*;
+
 public class Semester {
-    // This class will contain the modules, grades and status
-    // of the modules per semester.
-    // The data from the programme the student os doing determines
-    // how the QCA is calculated.
-
-    //here is a test implement for QCA calculator from eric i can explain it when i see yall but
-    //this might be a nice start to build upon
-    //import java.util.HashMap;
-    //import java.util.*;
-
-/*
-public class Semester {
-
-    HashMap<String, Double> Grade = new HashMap<>();
-
-
-    {
-
-        Grade.put("A1",4.0);
-        Grade.put("A2",3.6);
-        Grade.put("B1",3.2);
-        Grade.put("B2",3.0);
-        Grade.put("B3",2.8);
-        Grade.put("C1",2.60);
-        Grade.put("C2",2.4);
-        Grade.put("C3",2.0);
-        Grade.put("D1",1.6);
-        Grade.put("D2",1.2);
-        Grade.put("F",0.0);
-        Grade.put("NG",0.0);
+    private int attendedHours;
+    private int non_QualityHours;
+    HashMap<String, Double> Grade = new HashMap<>(){{
+        put("A1", 4.0);
+        put("A2", 3.6);
+        put("B1", 3.2);
+        put("B2", 3.0);
+        put("B3", 2.8);
+        put("C1", 2.6);
+        put("C2", 2.4);
+        put("C3", 2.0);
+        put("D1", 1.6);
+        put("D2", 1.2);
+        put("I", 0.0);
+        put("F", 0.0);
+        put("NG", 0.0);
+    }};
 
 
+    ArrayList <String> Grades = new ArrayList<>();
+    ArrayList<Module> mods = new ArrayList<Module>();
+
+
+
+    public Semester(int attendedHours) {
+        this.attendedHours = attendedHours;
     }
     public double getGrade(String Name) {
         return this.Grade.get(Name);
     }
-    public double QCACalc(Module credits,String Grade, int sumAttended, int nonQ) {
+    public double QCACalc(ArrayList<Module> credits,ArrayList <String> Grade) {
         //very basic implementation
-        double s = getGrade(Grade);
-        double QCA = (getGrade(Grade) * credits.getCredits())/ (sumAttended- nonQ);
-        return QCA;
+        double result = 0;
+        double scale = 0;
+        double QPV = 0.0;
+
+        for(int i =  0; i<Grades.size();i++) {
+            QPV = QPV+ getGrade(Grades.get(i)) * credits.get(i).getCredit();
+        }
+        double QCA = QPV/(attendedHours-non_QualityHours);
+        scale = Math.pow(10,2);//use this for rounding
+        result = Math.round(QCA * scale)/scale;
+
+        return result;
 
     }
-    public class Module {
-        String name;
-        String classCode;
-        int credits;
-
-        public Module(String name , String classCode, int credits) {
-            this.name = name;
-            this.classCode = classCode;
-            this.credits= credits;
+    public ArrayList<String> getGrades() {
+        return Grades;
+    }
+    public void addGrade(String grade) {
+        if(grade.equals("I")){
+            non_QualityHours = non_QualityHours+6;
         }
+        Grades.add(grade);
+    }
 
-        public int getCredits() {
-            return credits;
-        }
- */
-}
+    public int getAttendedHours() {
+        return attendedHours;
+    }
+
+    public ArrayList<Module> getCredits() {
+        return mods;
+    }
+    public void addModule(Module m) {
+        mods.add(m);
+    }
+
+
+    public Semester() {}
+
+    }
+
+
+

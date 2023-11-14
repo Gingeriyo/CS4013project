@@ -64,4 +64,5 @@ public class Student {
     public boolean isAttending() {
         return currentStudent;
     }
+
 }
