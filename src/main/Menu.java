@@ -1,6 +1,9 @@
 package main;
+
+import java.io.FileNotFoundException;
+
 public class Menu {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         
     
     // This will be the class to contain the main method
@@ -17,7 +20,5 @@ public class Menu {
             "+------------------------------------------------------------------------------------------------------------------------+"
     
             );
-
-    System.out.println(transcript);
     }
 }
