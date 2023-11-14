@@ -4,32 +4,27 @@ import java.util.*;
 
 public class Semester {
     private int attendedHours;
-    HashMap<String, Double> Grade = new HashMap<>();
+    HashMap<String, Double> Grade = new HashMap<>(){{
+        put("A1", 4.0);
+        put("A2", 3.6);
+        put("B1", 3.2);
+        put("B2", 3.0);
+        put("B3", 2.8);
+        put("C1", 2.6);
+        put("C2", 2.4);
+        put("C3", 2.0);
+        put("D1", 1.6);
+        put("D2", 1.2);
+        put("I", 0.0);
+        put("F", 0.0);
+        put("NG", 0.0);
+    }};
 
 
     ArrayList <String> Grades = new ArrayList<>();
     ArrayList<Module> mods = new ArrayList<Module>();
 
 
-
-
-    {
-
-        Grade.put("A1",4.0);
-        Grade.put("A2",3.6);
-        Grade.put("B1",3.2);
-        Grade.put("B2",3.0);
-        Grade.put("B3",2.8);
-        Grade.put("C1",2.60);
-        Grade.put("C2",2.4);
-        Grade.put("C3",2.0);
-        Grade.put("D1",1.6);
-        Grade.put("D2",1.2);
-        Grade.put("F",0.0);
-        Grade.put("NG",0.0);
-
-
-    }
 
     public Semester(int attendedHours) {
         this.attendedHours = attendedHours;
@@ -73,7 +68,7 @@ public class Semester {
 
     public Semester() {}
 
-}
+    }
 
 
 

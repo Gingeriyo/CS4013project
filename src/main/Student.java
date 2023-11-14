@@ -21,30 +21,7 @@ public class Student {
         String transcript;
         String semesterTranscript;
 
-        transcript = String.format(
-                "+------------------------------------------------------------------------------------------------------------------------+\n" +
-                "|                                     University of Limerick                                                             |\n" +
-                "|                                                                                                                        |\n" +
-                "|%s                          Student Full Transcript                                       %8d             |\n" +
-                "|                                                                                                                        |\n" +
-                "+------------------------------------------------------------------------------------------------------------------------+\n" +
-
-                "Name       %S            %S                  %S\n" +
-                "\n" +
-                "Address     %S\n" +
-                "\n" +
-                "            %S\n" +
-                "\n" +
-                "            %S\n" +
-                "                                                                                  Telephone  %d\n" +
-                "            %S\n" +
-                "\n" +
-                "\n" +
-                "\n",
-                currentDate, studentID, title, firstName, lastName, addressLine1, addressLine2, addressLine3, phoneNumber, addressLine4
-        );
-
-        return transcript;
+        return "";
     }
 
 
