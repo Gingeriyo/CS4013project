@@ -33,13 +33,19 @@ public class Student {
         csvReader.useDelimiter(",");
 
         while (csvReader.hasNext()) {
-            System.out.println(csvReader.next());
+            String ID =csvReader.next();
+            System.out.println(ID);
             
             // This if statement does not work and the comparison between
             // IDinput and the csvReader.next() never returns true.
-            if (Objects.equals(IDinput, csvReader.next())) {
+            //it should return true now.
+            //the problem seemed to be that even if you use csvreader.next() in a print statement
+            //The reader still advances so it was skipping the id everytime storing it in a variable fixed it for me
+            //also one more question why is Student type and Int and not String?
+            //hopefully this fixed the problem if not sorry :/
+            if (Objects.equals(IDinput, ID)) {
                 String[] details = csvReader.nextLine().split(",");
-                studentID = Integer.parseInt(details[0]);
+                studentID = Integer.parseInt(ID);
                 studentTitle = Integer.parseInt(details[1]);
                 firstName = details[2];
                 lastName = details[3];
