@@ -33,7 +33,7 @@ public class Student {
         csvReader.useDelimiter(",");
 
         while (csvReader.hasNext()) {
-            String ID =csvReader.next();
+            String ID = csvReader.next();
             System.out.println(ID);
             
             // This if statement does not work and the comparison between
@@ -64,7 +64,7 @@ public class Student {
     }
 
     public String getName() {
-        return firstName + lastName;
+        return firstName + " " + lastName;
     }
 
     public boolean isAttending() {
