@@ -9,13 +9,13 @@ public class Student {
     // Personal Information about the Student.
     // These can be changed if the student is logged in.
     private int studentID;
-    private String[] titles = {"Mr.", "Mrs.", "Mx."};
+    private String[] titles = { "Mr.", "Mrs.", "Mx." };
     private int studentTitle;
     private String firstName;
     private String lastName;
     private int phoneNumber;
     private String email;
-    private String[] types = {"Undergraduate", "Postgraduate", "PhD", "Masters"};
+    private String[] types = { "Undergraduate", "Postgraduate", "PhD", "Masters" };
     private int studentType;
     private String addressLine1;
     private String addressLine2;
@@ -35,14 +35,16 @@ public class Student {
         while (csvReader.hasNext()) {
             String ID = csvReader.next();
             System.out.println(ID);
-            
+
             // This if statement does not work and the comparison between
             // IDinput and the csvReader.next() never returns true.
-            //it should return true now.
-            //the problem seemed to be that even if you use csvreader.next() in a print statement
-            //The reader still advances so it was skipping the id everytime storing it in a variable fixed it for me
-            //also one more question why is Student type and Int and not String?
-            //hopefully this fixed the problem if not sorry :/
+            // it should return true now.
+            // the problem seemed to be that even if you use csvreader.next() in a print
+            // statement
+            // The reader still advances so it was skipping the id everytime storing it in a
+            // variable fixed it for me
+            // also one more question why is Student type and Int and not String?
+            // hopefully this fixed the problem if not sorry :/
             if (Objects.equals(IDinput, ID)) {
                 String[] details = csvReader.nextLine().split(",");
                 studentID = Integer.parseInt(ID);
@@ -69,6 +71,10 @@ public class Student {
 
     public boolean isAttending() {
         return currentStudent;
+    }
+
+    public int id() {
+        return studentID;
     }
 
 }
