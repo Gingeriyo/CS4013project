@@ -1,7 +1,11 @@
 package main;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.Reader;
 
 public class Menu {
     public static void main(String[] args) {
@@ -46,19 +50,29 @@ public class Menu {
         try {
             in = new Scanner(System.in);
             boolean more = true;
+            BufferedReader br = new BufferedReader(new FileReader("students.csv")) {
+
+            };
 
             while (more) {
                 System.out.println("S)tudent or F)aculty");
                 String command = in.nextLine().toUpperCase();
+                int newLine;
 
                 if (command.equals("S")) {
+
                     System.out.println("Enter StudentID number");
                     String line = in.nextLine();
+                    if ((line = br.readLine()) != null) {
+                        System.out.println("welcome");
+                    }
 
                 } else if (command.equals("F")) {
                     System.out.println("Enter First name and Last name");
                     String nameLine = in.nextLine();
 
+                } else {
+                    System.out.println("please state if you are S)tudent or F)aculty");
                 }
 
             }
