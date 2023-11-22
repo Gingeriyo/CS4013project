@@ -33,7 +33,6 @@ public class Student {
 
         while (csvReader.hasNext()) {
             String ID = csvReader.next();
-            System.out.println(ID);
             
             // This if statement does not work and the comparison between
             // IDinput and the csvReader.next() never returns true.
