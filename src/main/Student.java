@@ -26,7 +26,6 @@ public class Student {
 
     // This constructor adds all the information from the csv to the data fields
     // of the student.
-    // NEEDS TO BE FIXED!
     public Student(int id, String path) throws FileNotFoundException {
         String IDinput = Integer.toString(id);
         Scanner csvReader = new Scanner(new File(path));
@@ -34,15 +33,12 @@ public class Student {
 
         while (csvReader.hasNext()) {
             String ID = csvReader.next();
-            System.out.println(ID);
             
             // This if statement does not work and the comparison between
             // IDinput and the csvReader.next() never returns true.
-            //it should return true now.
-            //the problem seemed to be that even if you use csvreader.next() in a print statement
-            //The reader still advances so it was skipping the id everytime storing it in a variable fixed it for me
-            //also one more question why is Student type and Int and not String?
-            //hopefully this fixed the problem if not sorry :/
+            // it should return true now.
+            // the problem seemed to be that even if you use csvreader.next() in a print statement
+            // The reader still advances so it was skipping the id everytime storing it in a variable fixed it for me
             if (Objects.equals(IDinput, ID)) {
                 String[] details = csvReader.nextLine().split(",");
                 studentID = Integer.parseInt(ID);
