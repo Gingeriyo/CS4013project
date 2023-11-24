@@ -3,8 +3,10 @@ import java.util.HashMap;
 import java.util.*;
 
 public class Semester {
+
     private int attendedHours;
     private int non_QualityHours;
+    
     HashMap<String, Double> Grade = new HashMap<>(){{
         put("A1", 4.0);
         put("A2", 3.6);
