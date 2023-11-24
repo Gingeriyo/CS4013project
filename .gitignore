@@ -1,6 +1,10 @@
 # IDE
 /.idea
+/.vscode
 *.iml
+
+# Libraries (JUnit and JavaFX)
+/lib
 
 # Microsoft office Lockfiles
 ~$*

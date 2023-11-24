@@ -6,9 +6,24 @@ import java.util.Scanner;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.Reader;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
-public class Menu {
+public class Menu extends Application {
+
+    public void start(Stage primaryStage) throws Exception{
+        Button btn = new Button("test");
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(btn, 400, 300));
+        primaryStage.show();
+    }
     public static void main(String[] args) {
+
+        launch();
 
         // This will be the class to contain the main method
         // (Or not depending on if we require more classes).
