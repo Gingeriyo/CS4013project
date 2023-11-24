@@ -9,4 +9,6 @@ public class User {
     // A user is used alongside execution to determine what permissions
     // they have.
 
+    // should this class be an abstract class?
+
 }
