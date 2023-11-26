@@ -23,4 +23,18 @@ public class StudentTest {
         System.out.println(test.isAttending());
         assertEquals(test.isAttending(), "Currently Attending");
     }
+
+    @Test
+    public void constructorStudentGradesTest() throws FileNotFoundException {
+        StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
+        String[] arr_str = (test.getGradeTotalString()).get(0);
+        assertEquals(arr_str[8], "NA");
+    }
+
+    @Test
+    public void constructorStudentGradesTest2ndSemResults() throws FileNotFoundException {
+        StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
+        String[] arr_str = (test.getGradeTotalString()).get(1);
+        assertEquals(arr_str[3], "1");
+    }
 }

@@ -62,6 +62,7 @@ public class Student {
                 break;
             }
         }
+        csvReader.close();
     }
 
     public String getName() {
