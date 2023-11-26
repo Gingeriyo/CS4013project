@@ -2,7 +2,7 @@ package main;
 import java.util.HashMap;
 import java.util.*;
 
-public class Semester {
+public class Course {
 
     private int attendedHours;
     private int non_QualityHours;
@@ -29,7 +29,7 @@ public class Semester {
 
 
 
-    public Semester(int attendedHours) {
+    public Course(int attendedHours) {
         this.attendedHours = attendedHours;
     }
     public double getGrade(String Name) {
@@ -73,7 +73,7 @@ public class Semester {
     }
 
 
-    public Semester() {}
+    public Course() {}
 
     }
 
