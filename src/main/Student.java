@@ -58,18 +58,23 @@ public class Student {
                 addressLine3 = details[9];
                 addressLine4 = details[10];
                 eircode = details[11];
-                currentStudent = Boolean.parseBoolean(details[4]);
+                currentStudent = Boolean.parseBoolean(details[12]);
                 break;
             }
         }
     }
 
     public String getName() {
-        return firstName + " " + lastName;
+        return titles[studentTitle] + " " + firstName + " " + lastName;
     }
 
-    public boolean isAttending() {
-        return currentStudent;
+    public String isAttending() {
+        if (currentStudent) {
+            return "Currently Attending";
+        }
+        else {
+            return "Not Currently Attending";
+        }
     }
 
     public int getID() {

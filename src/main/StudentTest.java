@@ -11,9 +11,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class StudentTest {
 
     @Test
-    public void constructorStudentTest() throws FileNotFoundException {
-        Student test = new Student(22348069, "csv/students.csv");
+    public void constructorStudentTestName() throws FileNotFoundException {
+        Student test = new Student(22348069, "src/csv/students.csv");
         System.out.println(test.getName());
-        assertEquals(test.getName(), "Evan Buggy");
+        assertEquals(test.getName(), "Mr. Evan Buggy");
+    }
+
+    @Test
+    public void constructorStudentTestIsAttending() throws FileNotFoundException {
+        Student test = new Student(22348069, "src/csv/students.csv");
+        System.out.println(test.isAttending());
+        assertEquals(test.isAttending(), "Currently Attending");
     }
 }

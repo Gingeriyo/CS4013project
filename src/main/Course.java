@@ -2,6 +2,8 @@ package main;
 import java.util.HashMap;
 import java.util.*;
 
+// This class is used for instantiating information about a course.
+
 public class Course {
 
     private int attendedHours;
