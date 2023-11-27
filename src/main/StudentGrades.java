@@ -43,4 +43,8 @@ public class StudentGrades extends Student {
     public String[] getSemester(int sem) {
         return grades.get(sem);
     }
+
+    public String getYearofStudy(int sem) {
+        return grades.get(sem)[2];
+    }
 }

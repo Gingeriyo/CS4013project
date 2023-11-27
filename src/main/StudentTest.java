@@ -39,4 +39,11 @@ public class StudentTest {
         String[] temp = test.getSemester(1);
         assertEquals(temp[8], "43");
     }
+
+    @Test
+    public void StudentGradesSemesterYearOfStudy() throws FileNotFoundException {
+        StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
+        String temp = test.getYearofStudy(1);
+        assertEquals(temp, "2022/23");
+    }
 }
