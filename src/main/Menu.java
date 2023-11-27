@@ -1,29 +1,82 @@
 package main;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.Reader;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.geometry.Pos;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import javafx.scene.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
+// Gridpane
+// https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html?external_link=true
 
 public class Menu extends Application {
 
+    private Stage stage;
+
+    @Override
     public void start(Stage primaryStage) throws Exception{
-        Button btn = new Button("test");
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(btn, 400, 300));
+
+        stage = primaryStage;
+        primaryStage.setTitle("UL Portal");
+        primaryStage.setScene(login());
         primaryStage.show();
     }
-    public static void main(String[] args) {
 
+
+    // I cant get this to appear in centre of screen
+    // want to make a box of colour behind this
+    private Scene login(){
+        Button loginButton = new Button("Login");
+        Label idLabel = new Label("ID/USERNAME:");
+        Label pwLabel = new Label("PIN/PASSWORD:");
+        TextField idHere = new TextField("");
+        TextField pwHerhe = new TextField("");
+
+        loginButton.setOnAction(e -> stage.setScene(homeMenu()));
+        idLabel.setTextFill(Color.web("#FF0000"));
+        pwLabel.setTextFill(Color.web("#FF0000"));
+        
+        VBox p1 =   new VBox(new Label("Portal Login"),
+                    new Label(""), // this is here to act as a blank space
+                    idLabel,
+                    idHere,
+                    pwLabel, 
+                    pwHerhe, 
+                    loginButton);
+
+        p1.setAlignment(Pos.CENTER_LEFT);
+        p1.setSpacing(5);
+        p1.setMinSize(600, 500);
+        p1.setStyle("-fx-padding: 200;");
+
+        return new Scene(p1, 720, 640);
+    }
+
+
+    private Scene homeMenu(){
+        GridPane layout = new GridPane();
+
+        // the idea for a sign out button is to allow the user to log out and sign in as someone else
+        // this would probably need to restart the program?
+        Button signOut = new Button();
+
+        
+
+        return new Scene(layout);
+    }
+
+    public static void main(String[] args) {
         launch();
+    }
+}
 
         // This will be the class to contain the main method
         // (Or not depending on if we require more classes).
@@ -57,44 +110,4 @@ public class Menu extends Application {
          * UserStudent should grant the permissions to change personal details like
          * address etc.
          */
-        final String firstName;
-        final String lastName;
-        final int idNumber;
-        final Scanner in;
-
-        try {
-            in = new Scanner(System.in);
-            boolean more = true;
-            BufferedReader br = new BufferedReader(new FileReader("students.csv")) {
-
-            };
-
-            while (more) {
-                System.out.println("S)tudent or F)aculty");
-                String command = in.nextLine().toUpperCase();
-                int newLine;
-
-                if (command.equals("S")) {
-
-                    System.out.println("Enter StudentID number");
-                    String line = in.nextLine();
-                    if ((line = br.readLine()) != null) {
-                        System.out.println("welcome");
-                    }
-
-                } else if (command.equals("F")) {
-                    System.out.println("Enter First name and Last name");
-                    String nameLine = in.nextLine();
-
-                } else {
-                    System.out.println("please state if you are S)tudent or F)aculty");
-                }
-
-            }
-
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
-    }
-
-}
+       
