@@ -39,8 +39,8 @@ public class StudentGrades extends Student {
         }
     }
 
-    // Not final, will make individual methods and vars for returning the data
-    public ArrayList<String[]> getGradeTotalString() {
-        return grades;
+    // Returns the results for a specified semester (sem) and other info about the semester.
+    public String[] getSemester(int sem) {
+        return grades.get(sem);
     }
 }

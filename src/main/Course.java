@@ -1,5 +1,4 @@
 package main;
-import java.util.HashMap;
 import java.util.*;
 
 // This class is used for instantiating information about a course.
@@ -25,6 +24,16 @@ public class Course {
         put("NG", 0.0);
     }};
 
+    // Checks if a string is an integer.
+    public boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+            return true;
+        }
+        catch(NumberFormatException e) {
+            return false;
+        }
+    }
 
     ArrayList <String> Grades = new ArrayList<>();
     ArrayList<Module> mods = new ArrayList<Module>();

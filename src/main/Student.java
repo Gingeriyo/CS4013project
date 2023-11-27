@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Objects;
 import java.util.Scanner;
+import java.lang.NumberFormatException;
 
 public class Student {
     // Personal Information about the Student.
@@ -82,4 +83,11 @@ public class Student {
         return studentID;
     }
 
+    public String getAddress() {
+        return addressLine1 + ",\n" +
+        addressLine2 + ",\n" +
+        addressLine3 + ",\n" +
+        addressLine4 + "\n" +
+        eircode;
+    }
 }

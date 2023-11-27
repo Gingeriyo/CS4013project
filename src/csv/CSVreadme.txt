@@ -18,8 +18,20 @@ This student dropped out, and then came back and decided to do a different cours
 Faculty users have the ability to write this data to the grades.csv file.
 
 course.csv: Contains information about a course a student is attending, is used for gathering information
-from an instantiated Programme class. This included the list of modules associated with the programme
-(assuming it is not a research programme) and basic information like course director.
+from an instantiated Programme class. This included the list of modules associated with the programme,
+if the course is a research programme or not and basic information like course director.
+
+Take this line for example:
+LM121,false,Computer Science Common Entry,4,2,Dr Emil Vassev,emil.i.vassev@ul.ie,CS4012CS4141CS4221ET4011MA4111,CS4043CS4222CS4182ET4162MA4402
+The 1st token is the course code.
+The 2nd is if it's a research programme or not.
+The 3rd is the name.
+The 4th is the length of the course in years (4 years in this case).
+The 5th is the amount of semesters this course has (2 in this case).
+The 6th is the course director.
+The following tokens are the modules, in order, for each semester.
+In this case there are 2 semesters, so there are 2 tokens with the module codes.
+Each module code is 6 characters in length.
 
 modules.csv: Contains the grade to mark scheme for modules. Every module must include
 "NG", "F", "D2", "D1", "C3", "C2", "C1", "B3", "B2", "B1", "A2" and "A1" grades.

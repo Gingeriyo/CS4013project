@@ -24,17 +24,19 @@ public class StudentTest {
         assertEquals(test.isAttending(), "Currently Attending");
     }
 
+    // Checks to see if 22348069's address prints correctly.
     @Test
-    public void constructorStudentGradesTest() throws FileNotFoundException {
-        StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
-        String[] arr_str = (test.getGradeTotalString()).get(0);
-        assertEquals(arr_str[8], "NA");
+    public void StudentTestAddress() throws FileNotFoundException {
+        Student test = new Student(22348069, "src/csv/students.csv");
+        System.out.println(test.getAddress());
+        assertEquals(test.getAddress(), "addressline1,\naddressline2,\naddressline3,\naddressline4\ny35x8d8");
     }
 
+    // Checks to see if the 5th modules result of 22348069's 2nd semester were 43.
     @Test
-    public void constructorStudentGradesTest2ndSemResults() throws FileNotFoundException {
+    public void StudentGradesSemesterResults() throws FileNotFoundException {
         StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
-        String[] arr_str = (test.getGradeTotalString()).get(1);
-        assertEquals(arr_str[3], "1");
+        String[] temp = test.getSemester(1);
+        assertEquals(temp[8], "43");
     }
 }
