@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 // Gridpane
@@ -30,21 +31,24 @@ public class Menu extends Application {
         primaryStage.show();
     }
 
-
-    // I cant get this to appear in centre of screen
     // want to make a box of colour behind this
     private Scene login(){
+        Label header = new Label("Portal Login");
         Button loginButton = new Button("Login");
         Label idLabel = new Label("ID/USERNAME:");
         Label pwLabel = new Label("PIN/PASSWORD:");
         TextField idHere = new TextField("");
-        TextField pwHerhe = new TextField("");
+        PasswordField pwHerhe = new PasswordField();
 
+        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20)); 
+        idLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10)); 
+        pwLabel.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 10)); 
         loginButton.setOnAction(e -> stage.setScene(homeMenu()));
         idLabel.setTextFill(Color.web("#FF0000"));
         pwLabel.setTextFill(Color.web("#FF0000"));
         
-        VBox p1 =   new VBox(new Label("Portal Login"),
+        VBox p1 =   new VBox(
+                    header,
                     new Label(""), // this is here to act as a blank space
                     idLabel,
                     idHere,
@@ -53,9 +57,9 @@ public class Menu extends Application {
                     loginButton);
 
         p1.setAlignment(Pos.CENTER_LEFT);
-        p1.setSpacing(5);
+        p1.setSpacing(6);
         p1.setMinSize(600, 500);
-        p1.setStyle("-fx-padding: 200;");
+        p1.setStyle("-fx-padding: 180;");
 
         return new Scene(p1, 720, 640);
     }

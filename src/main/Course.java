@@ -43,9 +43,11 @@ public class Course {
     public Course(int attendedHours) {
         this.attendedHours = attendedHours;
     }
+
     public double getGrade(String Name) {
         return this.Grade.get(Name);
     }
+
     public double QCACalc(ArrayList<Module> credits,ArrayList <String> Grade) {
         //very basic implementation
         double result = 0;
@@ -62,9 +64,11 @@ public class Course {
         return result;
 
     }
+
     public ArrayList<String> getGrades() {
         return Grades;
     }
+
     public void addGrade(String grade) {
         if(grade.equals("I")){
             non_QualityHours = non_QualityHours+6;
@@ -79,6 +83,7 @@ public class Course {
     public ArrayList<Module> getCredits() {
         return mods;
     }
+    
     public void addModule(Module m) {
         mods.add(m);
     }
