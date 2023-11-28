@@ -1,14 +1,9 @@
 package main;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -56,7 +51,7 @@ public class Menu extends Application {
         pwLabel.setTextFill(Color.web("#FF0000"));
         loginButton.setOnAction(e -> stage.setScene(homeMenu()));
         
-        VBox p1 =   new VBox(
+        VBox layout =   new VBox(
                     header,
                     new Label(""), // this is here to act as a blank space
                     idLabel,
@@ -65,12 +60,12 @@ public class Menu extends Application {
                     pwHerhe, 
                     loginButton);
 
-        p1.setAlignment(Pos.CENTER_LEFT);
-        p1.setSpacing(6);
-        p1.setMinSize(600, 500);
-        p1.setStyle("-fx-padding: 180;");
+        layout.setAlignment(Pos.CENTER_LEFT);
+        layout.setSpacing(6);
+        layout.setMinSize(600, 500);
+        layout.setStyle("-fx-padding: 180;");
 
-        return new Scene(p1, minWidth, minHeight);
+        return new Scene(layout, minWidth, minHeight);
     }
 
     private Scene homeMenu(){
@@ -125,16 +120,16 @@ public class Menu extends Application {
         TableColumn<Module, String> yearCol = new TableColumn<Module, String>("Year");
         TableColumn<Module, String> semCol = new TableColumn<Module, String>("Period");
         */
-        TableColumn<Module, String> modCol = new TableColumn<Module, String>("Module");
-        TableColumn<Module, String> credCol = new TableColumn<Module, String>("Credits");
-        TableColumn<Module, String> nameCol = new TableColumn<Module, String>("Name");
+        TableColumn<StudentGrades, String> modCol = new TableColumn<StudentGrades, String>("Module");
+        TableColumn<StudentGrades, String> credCol = new TableColumn<StudentGrades, String>("Credits");
+        TableColumn<StudentGrades, String> nameCol = new TableColumn<StudentGrades, String>("Name");
 
         // this works but there is empty space in the table
         // and when I include cols for year and period it's too many cols
-        table.getColumns().addAll(modCol, credCol, nameCol);
+       /// table.getColumns().addAll(modCol, credCol, nameCol);
 
         // why does this not display in the table
-        table.getItems().add(new Module("name", 6, "CS4441"));
+       // table.getItems().add(new StudentGrades());
 
         VBox layout = new VBox(header, table);
         layout.setAlignment(Pos.CENTER_LEFT);
@@ -234,7 +229,10 @@ public class Menu extends Application {
     }
 
     private Scene personalDetails(){
+        Label header = new Label("Personal Details");
+        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20)); 
 
+        Label title = new Label();
 
         return new Scene(null);
     }
@@ -258,37 +256,3 @@ public class Menu extends Application {
         launch();
     }
 }
-
-        // This will be the class to contain the main method
-        // (Or not depending on if we require more classes).
-        // It will print out all the data to produce a transcript.
-
-        /*
-         * testing the student transcript
-         * 
-         * Student me = new Student();
-         * 
-         * System.out.println(me.transcript());
-         * 
-         */
-
-        /*
-         * this is the first thing that pops up when the project is run
-         * it creates a scanner and asks if you are logging in as a student or faculty
-         * member
-         * if a student is logging in then it asks for an id number.
-         * If faculty is logging in it asks for first and last names and checks through
-         * a csv file of faculty to grant access
-         * if anyone has a better check for this feel free to change it cuz there is a
-         * fault where a student can just enter
-         * a lecturers name for access
-         *
-         *
-         * NOTE FOR MYSELF: when an id number is put in the system should scan through a
-         * csv file of students
-         * and it pull the names and addresses from there. the userstudent class should
-         * hold a method for this scan
-         * UserStudent should grant the permissions to change personal details like
-         * address etc.
-         */
-       
