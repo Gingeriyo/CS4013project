@@ -18,6 +18,13 @@ public class StudentTest {
     }
 
     @Test
+    public void constructorStudentTestName2() throws FileNotFoundException {
+        Student test = new Student(22342761, "src/csv/students.csv");
+        System.out.println(test.getName());
+        assertEquals(test.getName(), "Mr. Leo O'Shea");
+    }
+
+    @Test
     public void constructorStudentTestIsAttending() throws FileNotFoundException {
         Student test = new Student(22348069, "src/csv/students.csv");
         System.out.println(test.isAttending());
@@ -36,8 +43,8 @@ public class StudentTest {
     @Test
     public void StudentGradesSemesterResults() throws FileNotFoundException {
         StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
-        String[] temp = test.getSemester(1);
-        assertEquals(temp[8], "43");
+        String[] temp = test.getResults(1);
+        assertEquals(temp[4], "43");
     }
 
     @Test
@@ -45,5 +52,18 @@ public class StudentTest {
         StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
         String temp = test.getYearofStudy(1);
         assertEquals(temp, "2022/23");
+    }
+
+    // Tests to see if the 1st semester this student attended was LM121.
+    @Test
+    public void StudentCourseCode() throws FileNotFoundException {
+        StudentGrades student = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
+        assertEquals("LM121", student.getCourseCode(0));
+    }
+
+    @Test
+    public void StudentGradesReturnName() throws FileNotFoundException {
+        StudentGrades student = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
+        assertEquals("Mr. Evan Buggy", student.getName());
     }
 }

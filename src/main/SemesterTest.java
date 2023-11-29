@@ -34,4 +34,12 @@ public class SemesterTest {
         Semester test = new Semester(30, "LM121", 0, "src/csv/course.csv", "src/csv/modules.csv");
         assertEquals("Dr Emil Vassev", test.getCourseDirector());
     }
+
+    // Returns the course director's name of the 1st semester the student took.
+    @Test
+    public void SemesterGradesTest() throws FileNotFoundException {
+        StudentGrades student = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
+        Semester test = new Semester(30, student.getCourseCode(0), student.getSemester(0), "src/csv/course.csv", "src/csv/modules.csv");
+        assertEquals("Dr Emil Vassev", test.getCourseDirector());
+    }
 }

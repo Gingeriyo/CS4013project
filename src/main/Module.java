@@ -2,6 +2,7 @@ package main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -12,21 +13,26 @@ public class Module {
     private int[] markingScheme = new int[12];
 
     public Module(String code, String path) throws FileNotFoundException {
-        String codeID = code;
         Scanner modReader = new Scanner(new File(path));
         modReader.useDelimiter(",");
-            while (modReader.hasNext()) {
-            String ID = modReader.next();
+        boolean reading = true;
+        String temp;
+
+        while (reading) {
+            System.out.println(code + "Input");
+            temp = modReader.next();
+            System.out.println(temp);
             
-            if (Objects.equals(codeID, ID)) {
+            if (code.equals(temp.replace("\n", ""))) {
                 String[] details = modReader.nextLine().split(",");
-                moduleCode = details[0];
+                System.out.println(Arrays.toString(details));
+                moduleCode = code;
                 name = details[1];
                 credit = Integer.parseInt(details[2]);
                 for (int i = 0; i < details.length - 3; i++) {
                     markingScheme[i] = Integer.parseInt(details[i + 3]);
                 }
-                break;
+                reading = false;
             }
         }
     }

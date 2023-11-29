@@ -2,6 +2,7 @@ package main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 import java.lang.NumberFormatException;
@@ -31,9 +32,10 @@ public class Student {
         String IDinput = Integer.toString(id);
         Scanner csvReader = new Scanner(new File(path));
         csvReader.useDelimiter(",");
+        boolean reading = true;
+        String temp;
 
-        while (csvReader.hasNext()) {
-            String ID = csvReader.next();
+        while (reading) {
             
             // This if statement does not work and the comparison between
             // IDinput and the csvReader.next() never returns true.
@@ -45,9 +47,12 @@ public class Student {
             //The reader still advances, so it was skipping the id everytime storing it in a variable fixed it for me
             //also one more question why is Student type and Int and not String?
             //hopefully this fixed the problem if not sorry :/
-            if (Objects.equals(IDinput, ID)) {
+
+            temp = csvReader.next();
+            if (IDinput.equals(temp.replace("\n", ""))) {
                 String[] details = csvReader.nextLine().split(",");
-                studentID = Integer.parseInt(ID);
+                System.out.println(Arrays.toString(details));
+                studentID = Integer.parseInt(IDinput);
                 studentTitle = Integer.parseInt(details[1]);
                 firstName = details[2];
                 lastName = details[3];
@@ -60,7 +65,7 @@ public class Student {
                 addressLine4 = details[10];
                 eircode = details[11];
                 currentStudent = Boolean.parseBoolean(details[12]);
-                break;
+                reading = false;
             }
         }
         csvReader.close();

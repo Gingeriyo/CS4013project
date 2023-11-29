@@ -29,6 +29,7 @@ public class Semester {
         put("D2", 1.2);
         put("F", 0.0);
         put("NG", 0.0);
+        put("N/A", 0.0);
     }};
 
     // Checks if a string is an integer.
@@ -61,39 +62,49 @@ public class Semester {
     // These are added to the mods ArrayList.
     public Semester(int attendedHours, String course, int semNum, String coursePath, String modulePath) throws FileNotFoundException {
         this.attendedHours = attendedHours;
-        String courseID = course;
         Scanner courseReader = new Scanner(new File(coursePath));
         courseReader.useDelimiter(",");
-            while (courseReader.hasNext()) {
-            String ID = courseReader.next();
+        boolean reading = true;
+        String temp;
+
+            while (reading) {
+            temp = courseReader.next();
             
-            if (Objects.equals(courseID, ID)) {
+            if (course.equals(temp.replace("\n", ""))) {
                 String[] details = courseReader.nextLine().split(",");
+                System.out.println(Arrays.toString(details));
                 courseCode = details[0];
                 nameOfCourse = details[1];
                 years = Integer.parseInt(details[2]);
                 courseDirector = details[3];
                 email = details[4];
 
-                String[] temp = details[5 + semNum].split("(?<=\\G.{6})");
-                for (int i = 0; i < temp.length; i++) {
-                    mods.add(new Module(temp[i], modulePath));
+                String[] arr_modCodesStore = details[5 + semNum].split("(?<=\\G.{6})");
+                for (int i = 0; i < arr_modCodesStore.length; i++) {
+                    mods.add(new Module(arr_modCodesStore[i], modulePath));
                 }
 
-                break;
+                reading = false;
             }
         }
     }
 
+    // This method will add the grades from a string of results to the
+    // Grades ArrayList.
     public void gradeCalc(String[] results) {
         int p = 0;
         for (int i = 0; i < mods.size(); i++) {
             int[] temp = mods.get(i).getMarkingScheme();
             for (p = 0; p < temp.length; p++) {
-                if (Integer.parseInt(results[i]) < temp[p]) {
-                    break;
+                if (isInteger(results[i])) {
+                    if (Integer.parseInt(results[i]) < temp[p]) {
+                        break;
+                    }
+                    Grades.add(arr_grade[p]);
                 }
-                Grades.add(arr_grade[p]);
+                else {
+                    Grades.add("N/A");
+                }
             }
         }
     }
@@ -121,8 +132,12 @@ public class Semester {
         return result;
     }
 
-    public ArrayList<String> getGrades() {
-        return Grades;
+    public String getGrades() {
+        String temp = "";
+        for (String s : Grades) {
+            temp += s + " ";
+        }
+        return temp;
     }
 
     public int getAttendedHours() {
