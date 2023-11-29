@@ -31,8 +31,38 @@ public class Menu extends Application {
         stage = primaryStage;
         primaryStage.setTitle("UL Portal");
         primaryStage.setResizable(false);
-        primaryStage.setScene(login());
+        primaryStage.setScene(startup());
         primaryStage.show();
+    }
+
+    private Scene startup(){
+        Label header = new Label("University Portal");
+        Label subtitle = new Label("Choose Login type.");
+        Button faculty = new Button("Faculty");
+        Button student = new Button("Student");
+
+        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20)); 
+        subtitle.setFont(Font.font("Verdana", FontWeight.BOLD, 10)); 
+        subtitle.setTextFill(Color.web("#FF0000"));
+        faculty.setMinWidth(200);
+        student.setMinWidth(200);
+
+        faculty.setOnAction(e -> stage.setScene(login()));
+        student.setOnAction(e -> stage.setScene(login()));
+
+        VBox layout = new VBox(
+                                header,
+                                new Label(""), // this is here to act as a blank space
+                                subtitle,
+                                faculty,
+                                student);
+
+        layout.setAlignment(Pos.CENTER_LEFT);
+        layout.setSpacing(6);
+        layout.setMinSize(500, 500);
+        layout.setStyle("-fx-padding: 180;");
+
+        return new Scene(layout, minWidth, minHeight);
     }
 
     // want to make a box of colour behind this
@@ -232,20 +262,60 @@ public class Menu extends Application {
         Label header = new Label("Personal Details");
         header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20)); 
 
+        // this is going to need so many labels and textfields
         Label title = new Label();
 
         return new Scene(null);
     }
 
     private Scene updateEmail(){
+Button home = new Button("Home");
+        home.setOnAction(e -> stage.setScene(homeMenu()));
+        Button go = new Button("Go");
+        // this should be changed to actually change the email
+        go.setOnAction(e -> stage.setScene(homeMenu()));
 
+        Label header = new Label("Change Email");
+        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20)); 
 
-        return new Scene(null);
+        Label old = new Label("Old Email");
+        Label newPlabel = new Label("New Email");
+        Label confirm = new Label("Confirm New Email");
+        
+        old.setFont(Font.font("Verdana", FontWeight.BOLD, 10)); 
+        newPlabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10)); 
+        confirm.setFont(Font.font("Verdana", FontWeight.BOLD, 10)); 
+        old.setTextFill(Color.web("#FF0000"));
+        newPlabel.setTextFill(Color.web("#FF0000"));
+        confirm.setTextFill(Color.web("#FF0000"));
+
+        TextField oldpw = new TextField();
+        TextField newpw = new TextField();
+        TextField confirmpw = new TextField();
+
+        VBox layout = new VBox(
+                                home,
+                                new Label(""), // this is here to act as a blank space
+                                header,
+                                old, 
+                                oldpw, 
+                                newPlabel,
+                                newpw,
+                                confirm,
+                                confirmpw,
+                                go);
+
+        layout.setAlignment(Pos.CENTER_LEFT);
+        layout.setSpacing(6);
+        layout.setMinSize(600, 500);
+        layout.setStyle("-fx-padding: 180;");
+
+        return new Scene(layout, minWidth, minHeight);
     }
     
     // the idea for a sign out button is to allow the user to log out and sign in as someone else
     // this would probably need to restart the program?
-    // also this probably does not need to be a scene
+    // also this does not need to be a scene and the 'logout' button's action needs to be changed 
     private Scene logout(){
         return new Scene(null);
     }
