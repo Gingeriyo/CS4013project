@@ -1,5 +1,6 @@
 package main;
 
+import javafx.fxml.FXML;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.layout.ColumnConstraints;
@@ -197,7 +198,8 @@ public class Menu extends Application {
         pwChange.setOnAction(e -> stage.setScene(changePassword()));
         details.setOnAction(e -> stage.setScene(personalDetails()));
         emailChange.setOnAction(e -> stage.setScene(updateEmail()));
-        logout.setOnAction(e -> stage.setScene(logout()));
+        // how would I get this to call a method upon being clicked?
+        // logout.setOnAction(logout());
 
         return layout;
     }
@@ -315,9 +317,9 @@ Button home = new Button("Home");
     
     // the idea for a sign out button is to allow the user to log out and sign in as someone else
     // this would probably need to restart the program?
-    // also this does not need to be a scene and the 'logout' button's action needs to be changed 
-    private Scene logout(){
-        return new Scene(null);
+    // tried doing that here but I could not figure out how to direct the 'login' action to calling this method 
+    private void logout(){
+        startup();
     }
 
     
