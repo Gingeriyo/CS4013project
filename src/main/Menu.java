@@ -2,6 +2,8 @@ package main;
 
 import static org.junit.jupiter.api.Assumptions.abort;
 
+import java.io.FileNotFoundException;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -74,27 +76,44 @@ public class Menu extends Application {
     // want to make a box of colour behind this
     private Scene facultyLogin() {
         Label header = new Label("Portal Login");
-        Button loginButton = new Button("Login");
+        Button loginButton = new Button("Double Click to Login!");
         Label idLabel = new Label("EMAIL:");
         Label pwLabel = new Label("PASSWORD:");
         TextField idHere = new TextField("");
-        PasswordField pwHerhe = new PasswordField();
+        PasswordField pwHere = new PasswordField();
+        Label failure = new Label("");
 
         header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20));
         idLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
         pwLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
         idLabel.setTextFill(Color.web("#FF0000"));
         pwLabel.setTextFill(Color.web("#FF0000"));
-        loginButton.setOnAction(e -> stage.setScene(homeMenu()));
-
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event){
+                try {
+                    Login loginOBJ;
+                    loginOBJ = new Login((idHere.getText()), (pwHere.getText()));
+                    if (loginOBJ.read()){
+                         loginButton.setOnAction(e -> stage.setScene(homeMenu())); 
+                    } else{
+                        failure.setText("Login Failed");
+                        loginButton.setOnAction(e -> stage.setScene(studentLogin())); 
+                    }
+                } catch (NumberFormatException | FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         VBox layout = new VBox(
                 header,
                 new Label(""), // this is here to act as a blank space
                 idLabel,
                 idHere,
                 pwLabel,
-                pwHerhe,
-                loginButton);
+                pwHere,
+                loginButton,
+                failure);
 
         layout.setAlignment(Pos.CENTER_LEFT);
         layout.setSpacing(6);
@@ -106,7 +125,7 @@ public class Menu extends Application {
 
     private Scene studentLogin() {
         Label header = new Label("Portal Login");
-        Button loginButton = new Button("Login");
+        Button loginButton = new Button("Double Click to Login!");
         Label idLabel = new Label("ID:");
         Label pwLabel = new Label("PASSWORD:");
         TextField idHere = new TextField("");
@@ -118,21 +137,23 @@ public class Menu extends Application {
         pwLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
         idLabel.setTextFill(Color.web("#FF0000"));
         pwLabel.setTextFill(Color.web("#FF0000"));
-        loginButton.setOnAction(e -> stage.setScene(homeMenu()));
-        /* 
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event){
-                if ((idHere.getText()) == "22342761" && (pwHere.getText()) == "0"){
-                    loginID = idHere.getText();
-                    loginPW = pwHere.getText();
-                    loginButton.setOnAction(e -> stage.setScene(homeMenu()));
-                } else{
-                    failure.setText("Login Failed");
+                try {
+                    Login loginOBJ;
+                    loginOBJ = new Login(Integer.parseInt((idHere.getText())), (pwHere.getText()));
+                    if (loginOBJ.read()){
+                         loginButton.setOnAction(e -> stage.setScene(homeMenu())); 
+                    } else{
+                        failure.setText("Login Failed");
+                        loginButton.setOnAction(e -> stage.setScene(studentLogin())); 
+                    }
+                } catch (NumberFormatException | FileNotFoundException e) {
+                    e.printStackTrace();
                 }
             }
         });
-        */
 
         VBox layout = new VBox(
                 header,
@@ -141,7 +162,8 @@ public class Menu extends Application {
                 idHere,
                 pwLabel,
                 pwHere,
-                loginButton);
+                loginButton,
+                failure);
 
         layout.setAlignment(Pos.CENTER_LEFT);
         layout.setSpacing(6);
