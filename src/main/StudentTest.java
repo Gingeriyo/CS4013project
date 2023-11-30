@@ -72,4 +72,10 @@ public class StudentTest {
         Login test = new Login(22348069, "CoolPassword92");
         assertEquals(true, test.read());
     }
+
+    @Test
+    public void LoginTest2() throws FileNotFoundException {
+        Login test = new Login(17563628, "yay");
+        assertEquals(false, test.read());
+    }
 }
