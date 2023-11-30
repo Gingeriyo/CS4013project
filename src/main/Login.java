@@ -2,6 +2,7 @@ package main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Login {
@@ -25,16 +26,30 @@ public class Login {
     }
 
     public boolean read() {
-        csvReader.useDelimiter(",");
-        boolean reading = true;
-        String temp;
+        try {
+            csvReader.useDelimiter(",");
+            boolean reading = true;
+            String temp;
+            String temp2;
+            boolean result = false;
 
-        while (reading) {
-            temp = csvReader.next();
-            if (identifier.equals(temp.replace("\n", "")) && pw.equals(csvReader.next())); {
-                return true;
+            while (reading) {
+                temp = csvReader.next();
+                temp2 = csvReader.next();
+                System.out.println(temp);
+                System.out.println(temp2);
+                System.out.println(pw + " (Password)");
+                System.out.println(identifier + " (Identifier)");
+                if (identifier.equals(temp.replace("\n", "")) && pw.equals(temp2)) {
+                    System.out.println("Logged in!");
+                    result = true;
+                    reading = false;
+                }
             }
+        return result;
         }
-        return false;
+        catch (NoSuchElementException e) {
+            return false;
+        }
     }
 }
