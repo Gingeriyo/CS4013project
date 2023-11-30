@@ -66,4 +66,10 @@ public class StudentTest {
         StudentGrades student = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
         assertEquals("Mr. Evan Buggy", student.getName());
     }
+
+    @Test
+    public void LoginTest() throws FileNotFoundException {
+        Login test = new Login(22348069, "CoolPassword92");
+        assertEquals(true, test.read());
+    }
 }

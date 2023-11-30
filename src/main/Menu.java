@@ -1,5 +1,7 @@
 package main;
 
+import static org.junit.jupiter.api.Assumptions.abort;
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
@@ -228,6 +230,7 @@ public class Menu extends Application {
         Button details = new Button("View/Edit Personal Details");
         Button emailChange = new Button("Update Email Address");
         Button logout = new Button("Logout");
+        logout.setOnAction(e -> logout());
 
         VBox layout = new VBox(header,
                 pwChange,
