@@ -1,5 +1,7 @@
 package main;
 
+import static org.junit.jupiter.api.Assumptions.abort;
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.layout.ColumnConstraints;
@@ -180,6 +182,7 @@ public class Menu extends Application {
         Button details = new Button("View/Edit Personal Details");
         Button emailChange = new Button("Update Email Address");
         Button logout = new Button("Logout");
+        logout.setOnAction(e -> logout());
 
         VBox layout = new VBox(header,
                 pwChange,
@@ -321,7 +324,7 @@ public class Menu extends Application {
     // tried doing that here but I could not figure out how to direct the 'login'
     // action to calling this method
     private void logout() {
-        startup();
+        stage.setScene(startup());
     }
 
     public static void main(String[] args) {
