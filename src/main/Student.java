@@ -3,9 +3,8 @@ package main;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
-import java.lang.NumberFormatException;
+
 
 public class Student extends User {
     // Personal Information about the Student.
@@ -71,10 +70,16 @@ public class Student extends User {
         csvReader.close();
     }
 
+    public int getID() {
+        return studentID;
+    }
+
+    @Override
     public String getName() {
         return titles[myTitle] + " " + firstName + " " + lastName;
     }
 
+    @Override
     public String isAttending() {
         if (currentStudent) {
             return "Currently Attending";
@@ -84,15 +89,22 @@ public class Student extends User {
         }
     }
 
-    public int getID() {
-        return studentID;
-    }
-
+    @Override
     public String getAddress() {
         return addressLine1 + ",\n" +
         addressLine2 + ",\n" +
         addressLine3 + ",\n" +
         addressLine4 + "\n" +
         eircode;
+    }
+
+    @Override
+    public String getEmail(){
+        return email;
+    }
+
+    @Override
+    public int getphoneNumber(){
+        return phoneNumber;
     }
 }
