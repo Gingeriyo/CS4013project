@@ -7,12 +7,12 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.lang.NumberFormatException;
 
-public class Student {
+public class Student extends User {
     // Personal Information about the Student.
     // These can be changed if the student is logged in.
     private int studentID;
     private String[] titles = { "Mr.", "Mrs.", "Mx." };
-    private int studentTitle;
+    private int myTitle;
     private String firstName;
     private String lastName;
     private int phoneNumber;
@@ -53,7 +53,7 @@ public class Student {
                 String[] details = csvReader.nextLine().split(",");
                 System.out.println(Arrays.toString(details));
                 studentID = Integer.parseInt(IDinput);
-                studentTitle = Integer.parseInt(details[1]);
+                myTitle = Integer.parseInt(details[1]);
                 firstName = details[2];
                 lastName = details[3];
                 phoneNumber = Integer.parseInt(details[4]);
@@ -72,7 +72,7 @@ public class Student {
     }
 
     public String getName() {
-        return titles[studentTitle] + " " + firstName + " " + lastName;
+        return titles[myTitle] + " " + firstName + " " + lastName;
     }
 
     public String isAttending() {
