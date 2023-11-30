@@ -3,7 +3,6 @@ package main;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
 
 public class Module {
@@ -19,9 +18,7 @@ public class Module {
         String temp;
 
         while (reading) {
-            System.out.println(code + "Input");
             temp = modReader.next();
-            System.out.println(temp);
             
             if (code.equals(temp.replace("\n", ""))) {
                 String[] details = modReader.nextLine().split(",");

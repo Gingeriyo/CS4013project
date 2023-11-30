@@ -92,19 +92,24 @@ public class Semester {
     // This method will add the grades from a string of results to the
     // Grades ArrayList.
     public void gradeCalc(String[] results) {
+        System.out.println("Module results: " + Arrays.toString(results));
+        System.out.println(mods.size());
         int p = 0;
         for (int i = 0; i < mods.size(); i++) {
             int[] temp = mods.get(i).getMarkingScheme();
-            for (p = 0; p < temp.length; p++) {
-                if (isInteger(results[i])) {
+            System.out.println("This module's marking scheme: " + Arrays.toString(temp));
+            if (isInteger(results[i])) {
+                p = 0;
+                for (p = 0; p < temp.length; p++) {
                     if (Integer.parseInt(results[i]) < temp[p]) {
                         break;
                     }
-                    Grades.add(arr_grade[p]);
                 }
-                else {
-                    Grades.add("N/A");
-                }
+                Grades.add(arr_grade[p - 1]);
+            }
+            else {
+                Grades.add("N/A");
+                System.out.println("Added N/A");
             }
         }
     }
@@ -158,6 +163,14 @@ public class Semester {
 
     public String getCourseDirector() {
         return courseDirector;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public String getNameOfCourse() {
+        return nameOfCourse;
     }
 }
 

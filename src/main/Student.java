@@ -3,9 +3,7 @@ package main;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.Objects;
 import java.util.Scanner;
-import java.lang.NumberFormatException;
 
 public class Student extends User {
     // Personal Information about the Student.

@@ -40,6 +40,23 @@ public class SemesterTest {
     public void SemesterGradesTest() throws FileNotFoundException {
         StudentGrades student = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
         Semester test = new Semester(30, student.getCourseCode(0), student.getSemester(0), "src/csv/course.csv", "src/csv/modules.csv");
-        assertEquals("Dr Emil Vassev", test.getCourseDirector());
+        test.gradeCalc(student.getResults(0));
+        assertEquals("N/A NG A1 C1 F ", test.getGrades());
+    }
+
+    @Test
+    public void SemesterModuleMarkingSchemeReturn() throws FileNotFoundException {
+        StudentGrades student = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
+        Semester test = new Semester(30, student.getCourseCode(0), student.getSemester(0), "src/csv/course.csv", "src/csv/modules.csv");
+        assertEquals(30, test.getModules().get(0).getMarkingScheme()[2]);
+    }
+
+    @Test
+    public void SemesterReturnQCA() throws FileNotFoundException {
+        StudentGrades student = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
+        Semester test = new Semester(30, student.getCourseCode(0), student.getSemester(0), "src/csv/course.csv", "src/csv/modules.csv");
+        test.gradeCalc(student.getResults(0));
+        System.out.println(test.QCACalc());
+        assertEquals(1.32, test.QCACalc());
     }
 }
