@@ -1,6 +1,7 @@
 package main;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -16,6 +17,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;
+import javafx.event.ActionEvent;
 
 // Gridpane
 // https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html?external_link=true
@@ -25,6 +27,8 @@ public class Menu extends Application {
     private Stage stage;
     private int minWidth = 720;
     private int minHeight = 480;
+    private String loginID;
+    private String loginPW;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -47,8 +51,8 @@ public class Menu extends Application {
         faculty.setMinWidth(200);
         student.setMinWidth(200);
 
-        faculty.setOnAction(e -> stage.setScene(login()));
-        student.setOnAction(e -> stage.setScene(login()));
+        faculty.setOnAction(e -> stage.setScene(facultyLogin()));
+        student.setOnAction(e -> stage.setScene(studentLogin()));
 
         VBox layout = new VBox(
                 header,
@@ -66,11 +70,11 @@ public class Menu extends Application {
     }
 
     // want to make a box of colour behind this
-    private Scene login() {
+    private Scene facultyLogin() {
         Label header = new Label("Portal Login");
         Button loginButton = new Button("Login");
-        Label idLabel = new Label("ID/USERNAME:");
-        Label pwLabel = new Label("PIN/PASSWORD:");
+        Label idLabel = new Label("EMAIL:");
+        Label pwLabel = new Label("PASSWORD:");
         TextField idHere = new TextField("");
         PasswordField pwHerhe = new PasswordField();
 
@@ -88,6 +92,50 @@ public class Menu extends Application {
                 idHere,
                 pwLabel,
                 pwHerhe,
+                loginButton);
+
+        layout.setAlignment(Pos.CENTER_LEFT);
+        layout.setSpacing(6);
+        layout.setMinSize(600, 500);
+        layout.setStyle("-fx-padding: 180;");
+
+        return new Scene(layout, minWidth, minHeight);
+    }
+
+    private Scene studentLogin() {
+        Label header = new Label("Portal Login");
+        Button loginButton = new Button("Login");
+        Label idLabel = new Label("ID:");
+        Label pwLabel = new Label("PASSWORD:");
+        TextField idHere = new TextField("");
+        PasswordField pwHere = new PasswordField();
+        Label failure = new Label("");
+
+        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20));
+        idLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+        pwLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+        idLabel.setTextFill(Color.web("#FF0000"));
+        pwLabel.setTextFill(Color.web("#FF0000"));
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event){
+                if ((idHere.getText()) == "22342761" && (pwHere.getText()) == "0"){
+                    loginID = idHere.getText();
+                    loginPW = pwHere.getText();
+                    loginButton.setOnAction(e -> stage.setScene(homeMenu()));
+                } else{
+                    failure.setText("Login Failed");
+                }
+            }
+        });
+
+        VBox layout = new VBox(
+                header,
+                new Label(""), // this is here to act as a blank space
+                idLabel,
+                idHere,
+                pwLabel,
+                pwHere,
                 loginButton);
 
         layout.setAlignment(Pos.CENTER_LEFT);
@@ -315,13 +363,19 @@ public class Menu extends Application {
         return new Scene(layout, minWidth, minHeight);
     }
 
+    private void cleanup(){
+        loginID = "";
+        loginPW = "";
+    }
+
     // the idea for a sign out button is to allow the user to log out and sign in as
     // someone else
     // this would probably need to restart the program?
     // tried doing that here but I could not figure out how to direct the 'login'
     // action to calling this method
     private void logout() {
-        startup();
+        cleanup();
+        stage.setScene(startup());
     }
 
     public static void main(String[] args) {
