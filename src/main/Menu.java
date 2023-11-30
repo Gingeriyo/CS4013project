@@ -118,6 +118,8 @@ public class Menu extends Application {
         pwLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
         idLabel.setTextFill(Color.web("#FF0000"));
         pwLabel.setTextFill(Color.web("#FF0000"));
+        loginButton.setOnAction(e -> stage.setScene(homeMenu()));
+        /* 
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event){
@@ -130,6 +132,7 @@ public class Menu extends Application {
                 }
             }
         });
+        */
 
         VBox layout = new VBox(
                 header,
@@ -193,28 +196,8 @@ public class Menu extends Application {
 
     private VBox myModules() {
         Label header = new Label("Current Modules");
-        TableView<Module> table = new TableView<Module>();
 
-        /*
-         * should also include the below two rows but since im using the 'module' class
-         * which doesnt include these I deleted them
-         * TableColumn<Module, String> yearCol = new TableColumn<Module,
-         * String>("Year");
-         * TableColumn<Module, String> semCol = new TableColumn<Module,
-         * String>("Period");
-         */
-        TableColumn<StudentGrades, String> modCol = new TableColumn<StudentGrades, String>("Module");
-        TableColumn<StudentGrades, String> credCol = new TableColumn<StudentGrades, String>("Credits");
-        TableColumn<StudentGrades, String> nameCol = new TableColumn<StudentGrades, String>("Name");
-
-        // this works but there is empty space in the table
-        // and when I include cols for year and period it's too many cols
-        // table.getColumns().addAll(modCol, credCol, nameCol);
-
-        // why does this not display in the table
-        // table.getItems().add(new StudentGrades());
-
-        VBox layout = new VBox(header, table);
+        VBox layout = new VBox(header, modules());
         layout.setAlignment(Pos.CENTER_LEFT);
         layout.setSpacing(6);
         layout.setMinSize(100, 100);
@@ -222,6 +205,31 @@ public class Menu extends Application {
         header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
 
         return layout;
+    }
+
+    private GridPane modules(){
+        GridPane gridPane = new GridPane();
+
+        String[] keys =
+                {
+                        "Module", "Credits", "Module Name",
+                };
+
+        int column = 0;
+        int row = 0;
+
+        for (String key : keys) {
+            Label label = new Label(key);
+            gridPane.add(label, column, row);
+
+            column++;
+            if (column > 2) {
+                column = 0;
+                row++;
+            }
+        }
+
+        return gridPane;
     }
 
     private VBox options() {
@@ -251,6 +259,12 @@ public class Menu extends Application {
         pwChange.setOnAction(e -> stage.setScene(changePassword()));
         details.setOnAction(e -> stage.setScene(personalDetails()));
         emailChange.setOnAction(e -> stage.setScene(updateEmail()));
+        logout.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event){
+                logout();
+            }
+        });
         // how would I get this to call a method upon being clicked?
         // logout.setOnAction(logout());
 
