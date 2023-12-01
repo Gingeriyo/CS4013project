@@ -1,7 +1,5 @@
 package main;
 
-import static org.junit.jupiter.api.Assumptions.abort;
-
 import java.io.FileNotFoundException;
 
 import javafx.application.Application;
@@ -19,8 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
 import javafx.event.ActionEvent;
 
 // Gridpane
@@ -31,8 +27,8 @@ public class Menu extends Application {
     private Stage stage;
     private int minWidth = 720;
     private int minHeight = 480;
-    private String loginID;
-    private String loginPW;
+    public String loginID;
+    public String loginPW;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -73,7 +69,6 @@ public class Menu extends Application {
         return new Scene(layout, minWidth, minHeight);
     }
 
-    // want to make a box of colour behind this
     private Scene facultyLogin() {
         Label header = new Label("Portal Login");
         Button loginButton = new Button("Double Click to Login!");
@@ -95,13 +90,15 @@ public class Menu extends Application {
                     Login loginOBJ;
                     loginOBJ = new Login((idHere.getText()), (pwHere.getText()));
                     if (loginOBJ.read()){
-                         loginButton.setOnAction(e -> stage.setScene(homeMenu())); 
+                        loginID = idHere.getText();
+                        loginPW = pwHere.getText();
+                        loginButton.setOnAction(e -> stage.setScene(homeMenu())); 
                     } else{
                         failure.setText("Login Failed");
                         loginButton.setOnAction(e -> stage.setScene(studentLogin())); 
                     }
                 } catch (NumberFormatException | FileNotFoundException e) {
-                    e.printStackTrace();
+                    failure.setText("Login Failed");
                 }
             }
         });
@@ -144,13 +141,15 @@ public class Menu extends Application {
                     Login loginOBJ;
                     loginOBJ = new Login(Integer.parseInt((idHere.getText())), (pwHere.getText()));
                     if (loginOBJ.read()){
+                        loginID = idHere.getText();
+                        loginPW = pwHere.getText();
                          loginButton.setOnAction(e -> stage.setScene(homeMenu())); 
                     } else{
                         failure.setText("Login Failed");
                         loginButton.setOnAction(e -> stage.setScene(studentLogin())); 
                     }
                 } catch (NumberFormatException | FileNotFoundException e) {
-                    e.printStackTrace();
+                    failure.setText("Login Failed");
                 }
             }
         });
@@ -287,9 +286,6 @@ public class Menu extends Application {
                 logout();
             }
         });
-        // how would I get this to call a method upon being clicked?
-        // logout.setOnAction(logout());
-
         return layout;
     }
 

@@ -65,10 +65,10 @@ public class Module {
                 mod[1] = s.next();//mod credits
                 break;
             }
-
         }
         return mod;
     }
+    
 //returns 3d array with the specified information once you input the users id
 //the info returned is the code for the modules ,credits and name for all 
 //the modules the user does
