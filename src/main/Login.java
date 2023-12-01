@@ -25,6 +25,10 @@ public class Login {
         this.pw = pw;
     }
 
+    // Call this method to login.
+    // Returns false if no element is found.
+    // Takes the 2 elements from a Login CSV
+    // and checks if they match what was passed in with the constructor.
     public boolean read() {
         try {
             csvReader.useDelimiter(",");

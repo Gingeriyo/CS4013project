@@ -61,6 +61,7 @@ public class StudentTest {
         assertEquals("LM121", student.getCourseCode(0));
     }
 
+    // Returns the full name from a Student grades object.
     @Test
     public void StudentGradesReturnName() throws FileNotFoundException {
         StudentGrades student = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
