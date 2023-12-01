@@ -48,6 +48,10 @@ public class StudentGrades extends Student {
         return Integer.parseInt(grades.get(sem)[3]);
     }
 
+    public int getNumberOfSemesters() {
+        return grades.size();
+    }
+
     public String getYearofStudy(int sem) {
         return grades.get(sem)[2];
     }

@@ -79,4 +79,10 @@ public class StudentTest {
         Login test = new Login(17563628, "yay");
         assertEquals(false, test.read());
     }
+
+    @Test
+    public void NumOfSemesters() throws FileNotFoundException {
+        StudentGrades student = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
+        assertEquals(2, student.getNumberOfSemesters());
+    }
 }
