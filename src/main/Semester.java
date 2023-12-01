@@ -172,6 +172,14 @@ public class Semester {
     public String getNameOfCourse() {
         return nameOfCourse;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public int getYears() {
+        return years;
+    }
 }
 
 
