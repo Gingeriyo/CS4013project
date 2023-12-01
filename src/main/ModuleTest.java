@@ -33,7 +33,7 @@ public class ModuleTest {
     @Test
     public void Transciptinfotest() {
     try {
-    String [][] s = Module.leo(22348069,1);
+    String[] s = Module.leo(22348069,1);
     String expected = "Fundamentals of Computer Organisation";
     assertEquals("ET4011", s[0]);
     } catch(FileNotFoundException e) {
