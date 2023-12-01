@@ -40,12 +40,7 @@ public class Login {
             while (reading) {
                 temp = csvReader.next();
                 temp2 = csvReader.next();
-                System.out.println(temp);
-                System.out.println(temp2);
-                System.out.println(pw + " (Password)");
-                System.out.println(identifier + " (Identifier)");
                 if (identifier.equals(temp.replace("\n", "")) && pw.equals(temp2)) {
-                    System.out.println("Logged in!");
                     result = true;
                     reading = false;
                 }
