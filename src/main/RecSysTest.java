@@ -13,4 +13,10 @@ public class RecSysTest {
         RecSys test = new RecSys(22348069);
         assertEquals("CS4012", test.getAllModuleInfo()[0]);
     }
+
+    @Test
+    public void RecSysTranscriptSingleSem() throws FileNotFoundException {
+        RecSys test = new RecSys(22348069);
+        assertEquals("CS4012", test.transcriptSingleSem(0));
+    }
 }

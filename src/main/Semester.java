@@ -144,6 +144,10 @@ public class Semester {
         return temp;
     }
 
+    public String getSingleGrade(int mod) {
+        return Grades.get(mod);
+    }
+
     public int getAttendedHours() {
         return attendedHours;
     }

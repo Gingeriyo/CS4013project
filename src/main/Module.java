@@ -53,7 +53,7 @@ public class Module {
 
 
     
-//returns 3d array with the specified information once you input the users id
+//returns array with the specified information once you input the users id
 //the info returned isthe code for the modules ,credits and name for all 
 //the modules the user does
 //right now it isint done as the semester is hard coded to be 0 so i might make it so 
