@@ -69,7 +69,7 @@ public class Semester {
 
             while (reading) {
             temp = courseReader.next();
-            
+            temp =temp.replace("\n","").strip();
             if (course.equals(temp.replace("\n", ""))) {
                 String[] details = courseReader.nextLine().split(",");
                 System.out.println(Arrays.toString(details));
