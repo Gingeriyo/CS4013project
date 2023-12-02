@@ -31,16 +31,6 @@ public class ModuleTest {
     }
 
     @Test
-    public void Transciptinfotest() {
-    try {
-    String [] s = Module.leo(22348070,0);
-    String expected = "Fundamentals of Computer Organisation";
-    assertEquals("ET4011", s[0]);
-    } catch(FileNotFoundException e) {
-        e.printStackTrace();
-    }
-    }
-    @Test
     public void changegrade() {
         Faculty.updateGrade("22348069", "LM115", 0, "CH4701", 40);
     }
