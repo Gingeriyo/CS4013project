@@ -53,13 +53,36 @@ public class Semester {
     ArrayList<String> moduleCodes = new ArrayList<String>();
     ArrayList<Module> mods = new ArrayList<Module>();
 
-    // This is the constructor for a semester.
-    // It takes in the amount of attended hours, the course it's a part of, the semester
-    // number (starts from 0) and the filepaths for course.csv and modules.csv.
-    // This will find the course and record its information via a scanner.
-    // The module codes will then be split and used to find them in the modules.csv file,
-    // creating individual module objects for each of them.
-    // These are added to the mods ArrayList.
+    /**
+     * This is the constructor for the Semester object.
+     * It is instantiated for every semester that the student does in RecSys.
+     * It contains the grades and QCA for a single semester, and gets the informatiom about the course
+     * the semester is for from course.csv.
+     * 
+     * Here is a line from course.csv:
+     * LM121,Computer Science Common Entry,4,Dr Emil Vassev,emil.i.vassev@ul.ie,CS4012CS4141CS4221ET4011MA4111,CS4043CS4222CS4182ET4162MA4402,
+     * 
+     * The 1st token is the course code.
+     * The 2nd is the name.
+     * The 3rd is the length of the course in years (4 years in this case).
+     * The 4th is the course director.
+     * The following tokens are the modules, in order, for each semester.
+     * In this case there are 2 semesters, so there are 2 tokens with the module codes.
+     * Each module code is 6 characters in length.
+     * 
+     * This constructor also uses modules.csv, and a semester object will hold a list of them.
+     * The file contains the grade to mark scheme for modules. Every module must include
+     * "NG", "F", "D2", "D1", "C3", "C2", "C1", "B3", "B2", "B1", "A2" and "A1" grades.
+     * The 1st token after the module code represents the credits of the module.
+     * The numbers after correspond to each grade respectively.
+     * Dissertations and thesis also fall under this category.
+     * @param attendedHours The amount of hours for this semester.
+     * @param course The course code.
+     * @param semNum The number the semester is for.
+     * @param coursePath The path to the course.csv file.
+     * @param modulePath The path to the modules.csv file.
+     * @throws FileNotFoundException
+     */
     public Semester(int attendedHours, String course, int semNum, String coursePath, String modulePath) throws FileNotFoundException {
         this.attendedHours = attendedHours;
         Scanner courseReader = new Scanner(new File(coursePath));
