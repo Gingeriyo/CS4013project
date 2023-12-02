@@ -93,7 +93,6 @@ public class RecSys {
     public String transcript() {
         String temp = "";
         double QCA = 0.0;
-        double scale = 0.0;
         for (int i = 0; i < semesters.size(); i++) {
             temp += transcriptSemesterInfo(i);
             QCA += semesters.get(i).QCACalc();

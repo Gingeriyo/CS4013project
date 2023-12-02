@@ -9,8 +9,6 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -21,11 +19,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
-import javafx.scene.text.Font;
 
 public class Menu extends Application {
 
@@ -101,7 +97,7 @@ public class Menu extends Application {
                         loginButton.setOnAction(e -> stage.setScene(facultyHomeMenu())); 
                     } else{
                         failure.setText("Login Failed");
-                        loginButton.setOnAction(e -> stage.setScene(studentLogin())); 
+                        loginButton.setOnAction(e -> stage.setScene(facultyLogin())); 
                     }
                 } catch (NumberFormatException | FileNotFoundException e) {
                     failure.setText("Login Failed");
@@ -202,9 +198,23 @@ public class Menu extends Application {
     }
 
     private Scene facultyHomeMenu(){
+        GridPane layout = new GridPane();
 
+        Label header = new Label("Home");
 
-        return new Scene(null);
+        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20));
+
+        layout.add(header, 0, 1); // col, row
+        layout.add(editStudent(), 0, 2);
+        layout.add(options(), 0, 3);
+
+        layout.setStyle("-fx-padding: 20;");
+        layout.getColumnConstraints().add(new ColumnConstraints((minWidth / 2) - 50));
+        layout.getColumnConstraints().add(new ColumnConstraints((minWidth / 2) - 50));
+        layout.setVgap(20);
+        layout.setHgap(20);
+
+        return new Scene(layout, minWidth, minHeight);
     }
 
     private VBox myResults() {
@@ -233,6 +243,41 @@ public class Menu extends Application {
         });
 
         return layout;
+    }
+
+    private VBox editStudent(){
+        Label header = new Label("Manage Student Info");
+        Button details = new Button("Edit Student Details");
+        Button editGrades = new Button("Edit Student Grades");
+        
+        VBox layout = new VBox( header,
+                                details,
+                                editGrades);
+
+        layout.setAlignment(Pos.CENTER_LEFT);
+        layout.setSpacing(6);
+        layout.setMinSize(100, 100);
+        layout.setStyle("-fx-padding: 10;");
+        header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+        details.setMinWidth(200);
+        editGrades.setMinWidth(200);
+
+        details.setOnAction(e -> stage.setScene(editStudentDetails()));
+        editGrades.setOnAction(e -> stage.setScene(editStudentGrades()));
+        
+        return new VBox();
+    }
+
+    private Scene editStudentDetails(){
+
+        return new Scene(null);
+    }
+
+    private Scene editStudentGrades(){
+
+        
+
+        return new Scene(null);
     }
 
     private VBox myModules() {
@@ -305,6 +350,8 @@ public class Menu extends Application {
         TextArea transcript = new TextArea(recsysObj.transcript());
         
         Label header = new Label("Student Transcript");
+        Button home = new Button("home");
+        home.setOnAction(e -> stage.setScene(studentHomeMenu()));
 
         transcript.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
         ScrollPane scrollPane = new ScrollPane(transcript);
@@ -312,10 +359,12 @@ public class Menu extends Application {
         scrollPane.setFitToHeight(true);
         scrollPane.setFitToWidth(true);
         BorderPane root = new BorderPane();
+        root.setBottom(home);
         root.setTop(header);
         root.setCenter(scrollPane); 
 
-        transcript.setFont(Font.font("Consolas"));
+        transcript.setEditable(false);
+        transcript.setFont(Font.font("Consolas", 12));
         root.setStyle("-fx-padding: 10;");
         header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
 
