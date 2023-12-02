@@ -69,7 +69,6 @@ public class Semester {
 
             while (reading) {
             temp = courseReader.next();
-            
             if (course.equals(temp.replace("\n", ""))) {
                 String[] details = courseReader.nextLine().split(",");
                 System.out.println(Arrays.toString(details));
@@ -78,7 +77,6 @@ public class Semester {
                 years = Integer.parseInt(details[2]);
                 courseDirector = details[3];
                 email = details[4];
-
                 String[] arr_modCodesStore = details[5 + semNum].split("(?<=\\G.{6})");
                 for (int i = 0; i < arr_modCodesStore.length; i++) {
                     mods.add(new Module(arr_modCodesStore[i], modulePath));
@@ -121,16 +119,17 @@ public class Semester {
     }
 
     // Calculates the QCA for a semester.
+    //did one quick change here it should be called QCS not QPV Thats something else
     public double QCACalc() {
         double result = 0;
         double scale = 0;
-        double QPV = 0.0;
+        double QCS = 0.0;
 
         for(int i =  0; i < Grades.size(); i++) {
-            QPV = QPV + getGrade(Grades.get(i)) * mods.get(i).getCredit();
+            QCS = QCS + getGrade(Grades.get(i)) * mods.get(i).getCredit();
         }
 
-        double QCA = QPV / (attendedHours - non_QualityHours);
+        double QCA = QCS / (attendedHours - non_QualityHours);
         scale = Math.pow(10,2); //use this for rounding
         result = Math.round(QCA * scale) / scale;
 
@@ -143,6 +142,10 @@ public class Semester {
             temp += s + " ";
         }
         return temp;
+    }
+
+    public String getSingleGrade(int mod) {
+        return Grades.get(mod);
     }
 
     public int getAttendedHours() {

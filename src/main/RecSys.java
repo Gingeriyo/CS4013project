@@ -12,7 +12,9 @@ public class RecSys {
     public RecSys(int id) throws FileNotFoundException {
         student = new StudentGrades(id, "src/csv/students.csv", "src/csv/grades.csv");
         for (int i = 0; i < student.getNumberOfSemesters(); i++) {
-            semesters.add(new Semester(30, student.getCourseCode(i), student.getSemester(i), "src/csv/course.csv", "src/csv/modules.csv"));
+            Semester adding = new Semester(30, student.getCourseCode(i), student.getSemester(i), "src/csv/course.csv", "src/csv/modules.csv");
+            adding.gradeCalc(student.getResults(i));
+            semesters.add(adding);
         }
     }
 
@@ -30,5 +32,44 @@ public class RecSys {
             }
         }
         return temp.split(",");
+    }
+
+    // Returns information about the modules of a specific Semester.
+    // needs to be changed to use string.format
+    public String getModulesInfo(int sem) {
+        ArrayList<Module> mods = semesters.get(sem).getModules();
+        String temp = "";
+        for (int i = 0; i < mods.size(); i++) {
+            temp += (mods.get(i).getClassCode() + ", " + mods.get(i).getCredit() + ", " + mods.get(i).getName() + "\n");
+        }
+        return temp;
+    }
+
+    public int getLastSemesterNum() {
+        return semesters.size() - 1;
+    }
+
+    public String transcriptSingleSem(int sem) {
+        String temp = "";
+        Semester tempsem = semesters.get(sem);
+        ArrayList<Module> mods = tempsem.getModules();
+        temp += student.getName() + "\n" +
+        student.getAddress() + "\n" +
+        student.getEmail() + ", " + student.getphoneNumber() + "\n" +
+        student.getStudentType() + ", " + student.isAttending() + "\n" + "--------------------" + "\n" +
+        student.getYearofStudy(sem) + "\n";
+
+        for (int i = 0; i < mods.size(); i++) {
+            temp += mods.get(i).getClassCode() + "     |  " +
+            String.format("%-10s", mods.get(i).getCredit()) + "|  " +
+            String.format("%-50s", mods.get(i).getName()) + "|  " +
+            tempsem.getSingleGrade(i) + "\n";
+        }
+
+        temp += "--------------------" + "\n" +
+        tempsem.getAttendedHours() + " Attended Hours\n" +
+        "QCA:" + tempsem.QCACalc();
+
+        return temp;
     }
 }

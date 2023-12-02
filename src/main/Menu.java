@@ -181,8 +181,8 @@ public class Menu extends Application {
 
         layout.add(header, 0, 1); // col, row
         layout.add(myResults(), 0, 2);
-        layout.add(myModules(), 0, 3);
-        layout.add(options(), 1, 3);
+        layout.add(options(), 0, 3);
+        layout.add(myModules(), 1, 2);
 
         layout.setStyle("-fx-padding: 20;");
         layout.getColumnConstraints().add(new ColumnConstraints((minWidth / 2) - 50));
@@ -228,29 +228,23 @@ public class Menu extends Application {
         return layout;
     }
 
-    private GridPane modules(){
-        GridPane gridPane = new GridPane();
+    private Label modules(){
+        RecSys modulesString;
 
-        String[] keys =
-                {
-                        "Module", "Credits", "Module Name",
-                };
+        Label current = new Label();
 
-        int column = 0;
-        int row = 0;
+        try {
+        modulesString = new RecSys(Integer.parseInt(loginID));
+        
+        String list = "Module, Credits, Module Name\n" + modulesString.getModulesInfo(modulesString.getLastSemesterNum());
+        
+        current = new Label(list);
 
-        for (String key : keys) {
-            Label label = new Label(key);
-            gridPane.add(label, column, row);
-
-            column++;
-            if (column > 2) {
-                column = 0;
-                row++;
-            }
+        } catch (NumberFormatException | FileNotFoundException e) {
+            e.printStackTrace();
         }
 
-        return gridPane;
+        return current;
     }
 
     private VBox options() {
