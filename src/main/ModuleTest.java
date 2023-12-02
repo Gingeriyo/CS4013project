@@ -31,7 +31,7 @@ public class ModuleTest {
     }
 
     @Test
-    public void changegrade() {
+    public void changeGrade() {
         Faculty.updateGrade("22348069", "LM115", 0, "CH4701", 40);
     }
 }

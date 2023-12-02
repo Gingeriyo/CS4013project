@@ -53,16 +53,25 @@ public class RecSys {
         return student;
     }
 
-    public String transcriptSingleSem(int sem) {
+    public String getStudentInfo() {
+        String temp = "";
+        temp += String.format("%-15s", "Name:") + "|  " + student.getName() + "\n" +
+        String.format("%-15s", "Email:") + "|  " +  student.getEmail() + "\n" +
+        String.format("%-15s", "Phone Number:") +  "|  " + student.getphoneNumber() + "\n" +
+        String.format("%-15s", "Status:") +  "|  " + student.getStudentType() + ", " + student.isAttending() +
+        "\nAddress:\n" + student.getAddress() + "\n\n";
+        return temp;
+    }
+
+    public Semester getSemester(int sem) {
+        return semesters.get(sem);
+    }
+
+    public String transcriptSemesterInfo(int sem) {
         String temp = "";
         Semester tempsem = semesters.get(sem);
         ArrayList<Module> mods = tempsem.getModules();
-        temp += student.getName() + "\n" +
-        student.getAddress() + "\n" +
-        student.getEmail() + ", " + student.getphoneNumber() + "\n" +
-        student.getStudentType() + ", " + student.isAttending() + "\n" + "--------------------" + "\n" +
-        student.getYearofStudy(sem) + "\n";
-
+        
         for (int i = 0; i < mods.size(); i++) {
             temp += mods.get(i).getClassCode() + "     |  " +
             String.format("%-10s", mods.get(i).getCredit()) + "|  " +
@@ -77,11 +86,18 @@ public class RecSys {
         return temp;
     }
 
+    public String transcriptSingleSem(int sem) {
+        return getStudentInfo() + "\n" + transcriptSemesterInfo(sem);
+    }
+
     public String transcript() {
         String temp = "";
+        double QCA = 0.0;
+        double scale = 0.0;
         for (int i = 0; i < semesters.size(); i++) {
-            temp += transcriptSingleSem(i);
+            temp += transcriptSemesterInfo(i);
+            QCA += semesters.get(i).QCACalc();
         }
-        return temp;
+        return getStudentInfo() + String.format("%-15s", "QCA: ") + "|  " + (QCA / semesters.size()) + "\n\n" + temp;
     }
 }

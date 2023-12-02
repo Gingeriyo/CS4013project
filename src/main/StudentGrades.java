@@ -3,7 +3,6 @@ package main;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 // This class is the one instantiated at runtime.
@@ -34,7 +33,6 @@ public class StudentGrades extends Student {
             
             if (gradeID.equals(temp.replace("\n", ""))) {
                 String[] gradeDetails = (gradeReader.nextLine()).replace(gradeID + ",", "").split(" ");
-                System.out.println(Arrays.toString(gradeDetails));
                 for (int i = 0; i < gradeDetails.length; i++) {
                     grades.add(gradeDetails[i].split(","));
                 }

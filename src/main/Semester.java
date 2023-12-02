@@ -71,7 +71,6 @@ public class Semester {
             temp = courseReader.next();
             if (course.equals(temp.replace("\n", ""))) {
                 String[] details = courseReader.nextLine().split(",");
-                System.out.println(Arrays.toString(details));
                 courseCode = details[0];
                 nameOfCourse = details[1];
                 years = Integer.parseInt(details[2]);
@@ -90,12 +89,9 @@ public class Semester {
     // This method will add the grades from a string of results to the
     // Grades ArrayList.
     public void gradeCalc(String[] results) {
-        System.out.println("Module results: " + Arrays.toString(results));
-        System.out.println(mods.size());
         int p = 0;
         for (int i = 0; i < mods.size(); i++) {
             int[] temp = mods.get(i).getMarkingScheme();
-            System.out.println("This module's marking scheme: " + Arrays.toString(temp));
             if (isInteger(results[i])) {
                 p = 0;
                 for (p = 0; p < temp.length; p++) {
@@ -107,7 +103,6 @@ public class Semester {
             }
             else {
                 Grades.add("N/A");
-                System.out.println("Added N/A");
             }
         }
     }

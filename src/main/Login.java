@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Login {
 
-    Scanner csvReader;
+    private Scanner csvReader;
     private String identifier;
     private String pw;
     

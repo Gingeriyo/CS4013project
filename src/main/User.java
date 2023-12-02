@@ -12,7 +12,6 @@ public abstract class User {
     private String addressLine3;
     private String addressLine4;
     private String eircode;
-    private boolean currentStudent;
 
     public String getName() {
         return titles[myTitle] + " " + firstName + " " + lastName;
@@ -32,14 +31,5 @@ public abstract class User {
         addressLine3 + ",\n" +
         addressLine4 + "\n" +
         eircode;
-    }
-
-    public String isAttending() {
-        if (currentStudent) {
-            return "Currently Attending";
-        }
-        else {
-            return "Not Currently Attending";
-        }
     }
 }

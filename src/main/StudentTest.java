@@ -12,21 +12,21 @@ public class StudentTest {
 
     @Test
     public void constructorStudentTestName() throws FileNotFoundException {
-        Student test = new Student(22348069, "src/csv/students.csv");
+        StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
         System.out.println(test.getName());
         assertEquals(test.getName(), "Mr. Evan Buggy");
     }
 
     @Test
     public void constructorStudentTestName2() throws FileNotFoundException {
-        Student test = new Student(22342761, "src/csv/students.csv");
+        StudentGrades test = new StudentGrades(22342761, "src/csv/students.csv", "src/csv/grades.csv");
         System.out.println(test.getName());
         assertEquals(test.getName(), "Mr. Leo O'Shea");
     }
 
     @Test
     public void constructorStudentTestIsAttending() throws FileNotFoundException {
-        Student test = new Student(22348069, "src/csv/students.csv");
+        StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
         System.out.println(test.isAttending());
         assertEquals(test.isAttending(), "Currently Attending");
     }
@@ -34,7 +34,7 @@ public class StudentTest {
     // Checks to see if 22348069's address prints correctly.
     @Test
     public void StudentTestAddress() throws FileNotFoundException {
-        Student test = new Student(22348069, "src/csv/students.csv");
+        StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
         System.out.println(test.getAddress());
         assertEquals(test.getAddress(), "addressline1,\naddressline2,\naddressline3,\naddressline4\ny35x8d8");
     }
@@ -61,7 +61,7 @@ public class StudentTest {
         assertEquals("LM121", student.getCourseCode(0));
     }
 
-    // Returns the full name from a Student grades object.
+    // Returns the full name from a StudentGrades grades object.
     @Test
     public void StudentGradesReturnName() throws FileNotFoundException {
         StudentGrades student = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
@@ -83,6 +83,6 @@ public class StudentTest {
     @Test
     public void NumOfSemesters() throws FileNotFoundException {
         StudentGrades student = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
-        assertEquals(2, student.getNumberOfSemesters());
+        assertEquals(8, student.getNumberOfSemesters());
     }
 }
