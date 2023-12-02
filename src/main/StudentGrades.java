@@ -20,6 +20,43 @@ public class StudentGrades extends Student {
     // The 3rd is the number of the semester out of the duration of the course (starts from 0).
     ArrayList<String[]> grades = new ArrayList<String[]>();
 
+    /**
+     * The constructor for a StudentGrades object.
+     * This object contains all the semesters a student has done for a single student.
+     * The information is stored in the grades.csv file. The basic information about a
+     * student is stored in students.csv and the code for getting that information
+     * is inherited from the Student class.
+     * 
+     * Take this line for example:
+     * 22342761,0,Leo,O'Shea,0851833320,leosCoolEmail@leo.com,0,addressline1,addressline2,addressline3,addressline4,y35da0c,true,
+
+     * The 1st token is the student ID.
+     * The next is the title for Leo (used for an array of titles).
+     * Then the 1st and 2nd name.
+     * The 5th and 6th are their phone number and email respectively.
+     * The 7th is what type of student they are.
+     * The next 5 tokens are their address and eircode.
+     * the final token is whether the student is currently attending or not.
+     * grades.csv: Contains information about the student's grades. Is used for when StudentGrades is instantiated.
+     * There is a line for each student. "NA" means a result has not yet been assigned.
+
+     * Take this line for example:
+     * 92546743,LM110,2020/21,0,76,99,45,60,22,,LM110,2020/21,1,77,NA,43,87,NA,,AQ822,2022/23,0,76,99,45,60,22,
+
+     * The first token is the Student ID, Followed by the course code and the semester that the following grades are for.
+     * So this student has grades of 76, 99, 45, 60, and 22 for the first semester of LM110 (Bachelors for Game Development).
+     * The college year is showed after the college code.
+     * The semesters are separated by an empty delimiter.
+     * The student then has 77, NA, 43, 87 and NA for the 2nd semester.
+     * This student has yet to receive their grades for their 2nd and 5th module, so they are marked as NA.
+     * This student dropped out, and then came back and decided to do a different course, with a course code of AQ822.
+     * Faculty users have the ability to write this data to the grades.csv file.
+     * 
+     * @param id The ID of the student.
+     * @param studentInfoPath The path to the csv file containing the informatiom about a student.
+     * @param gradesPath The path to the csv file containing the student's grades.
+     * @throws FileNotFoundException
+     */
     public StudentGrades(int id, String studentInfoPath, String gradesPath) throws FileNotFoundException {
         super(id, studentInfoPath);
         String gradeID = Integer.toString(id);

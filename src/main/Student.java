@@ -26,6 +26,15 @@ public abstract class Student extends User {
 
     // This constructor adds all the information from the csv to the data fields
     // of the student.
+
+    /**
+     * The Student constructor.
+     * As this is an abstract class, This is not instantiated, and
+     * is instead used for inheritance by StudentGrades via a super constructor.
+     * @param id The Student ID.
+     * @param path The File path for the csv containing all the informatiom about a student.
+     * @throws FileNotFoundException
+     */
     public Student(int id, String path) throws FileNotFoundException {
         String IDinput = Integer.toString(id);
         Scanner csvReader = new Scanner(new File(path));
