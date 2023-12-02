@@ -2,11 +2,10 @@ package main;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 
-public class Student extends User {
+public abstract class Student extends User {
     // Personal Information about the Student.
     // These can be changed if the student is logged in.
     private int studentID;
@@ -39,7 +38,6 @@ public class Student extends User {
             temp = csvReader.next();
             if (IDinput.equals(temp.replace("\n", ""))) {
                 String[] details = csvReader.nextLine().split(",");
-                System.out.println(Arrays.toString(details));
                 studentID = Integer.parseInt(IDinput);
                 myTitle = Integer.parseInt(details[1]);
                 firstName = details[2];
@@ -68,7 +66,6 @@ public class Student extends User {
         return titles[myTitle] + " " + firstName + " " + lastName;
     }
 
-    @Override
     public String isAttending() {
         if (currentStudent) {
             return "Currently Attending";

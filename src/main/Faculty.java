@@ -11,8 +11,7 @@ public class Faculty extends User {
     // The faculty user has the ability to add and modify semester objects
     // to a StudentGrades object.
 
-
-    private String[] titles = { "Mr.", "Mrs.", "Mx." };
+    private String[] titles = {"Dr.", "Mr.", "Mrs.", "Mx."};
     private int myTitle;
     private String firstName;
     private String lastName;
@@ -27,11 +26,6 @@ public class Faculty extends User {
     @Override
     public String getName() {
         return titles[myTitle] + " " + firstName + " " + lastName;
-    }
-
-    @Override
-    public String isAttending() {
-        return "Faculty member";
     }
 
     @Override
