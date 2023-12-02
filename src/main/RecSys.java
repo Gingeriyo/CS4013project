@@ -49,6 +49,10 @@ public class RecSys {
         return semesters.size() - 1;
     }
 
+    public StudentGrades getStudent() {
+        return student;
+    }
+
     public String transcriptSingleSem(int sem) {
         String temp = "";
         Semester tempsem = semesters.get(sem);
@@ -68,8 +72,16 @@ public class RecSys {
 
         temp += "--------------------" + "\n" +
         tempsem.getAttendedHours() + " Attended Hours\n" +
-        "QCA:" + tempsem.QCACalc();
+        "QCA:" + tempsem.QCACalc() + "\n\n";
 
+        return temp;
+    }
+
+    public String transcript() {
+        String temp = "";
+        for (int i = 0; i < semesters.size(); i++) {
+            temp += transcriptSingleSem(i);
+        }
         return temp;
     }
 }

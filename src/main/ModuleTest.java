@@ -42,6 +42,6 @@ public class ModuleTest {
     }
     @Test
     public void changegrade() {
-        Faculty.updateGrade("22348069", "LM115", 0, "CH4701", 70.0);
+        Faculty.updateGrade("22348069", "LM115", 0, "CH4701", 40);
     }
 }
