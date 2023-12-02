@@ -4,9 +4,13 @@ import java.io.FileNotFoundException;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Pos;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -16,11 +20,12 @@ import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
-
-// Gridpane
-// https://docs.oracle.com/javase/8/javafx/api/javafx/scene/layout/GridPane.html?external_link=true
+import javafx.scene.text.Font;
 
 public class Menu extends Application {
 
@@ -29,6 +34,7 @@ public class Menu extends Application {
     private int minHeight = 480;
     public String loginID;
     public String loginPW;
+    RecSys recsysObj;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -92,7 +98,7 @@ public class Menu extends Application {
                     if (loginOBJ.read()){
                         loginID = idHere.getText();
                         loginPW = pwHere.getText();
-                        loginButton.setOnAction(e -> stage.setScene(homeMenu())); 
+                        loginButton.setOnAction(e -> stage.setScene(facultyHomeMenu())); 
                     } else{
                         failure.setText("Login Failed");
                         loginButton.setOnAction(e -> stage.setScene(studentLogin())); 
@@ -102,6 +108,7 @@ public class Menu extends Application {
                 }
             }
         });
+
         VBox layout = new VBox(
                 header,
                 new Label(""), // this is here to act as a blank space
@@ -143,7 +150,8 @@ public class Menu extends Application {
                     if (loginOBJ.read()){
                         loginID = idHere.getText();
                         loginPW = pwHere.getText();
-                         loginButton.setOnAction(e -> stage.setScene(homeMenu())); 
+                        recsysObj = new RecSys(Integer.valueOf(loginID));
+                        loginButton.setOnAction(e -> stage.setScene(studentHomeMenu())); 
                     } else{
                         failure.setText("Login Failed");
                         loginButton.setOnAction(e -> stage.setScene(studentLogin())); 
@@ -172,7 +180,7 @@ public class Menu extends Application {
         return new Scene(layout, minWidth, minHeight);
     }
 
-    private Scene homeMenu() {
+    private Scene studentHomeMenu() {
         GridPane layout = new GridPane();
 
         Label header = new Label("Home");
@@ -193,6 +201,12 @@ public class Menu extends Application {
         return new Scene(layout, minWidth, minHeight);
     }
 
+    private Scene facultyHomeMenu(){
+
+
+        return new Scene(null);
+    }
+
     private VBox myResults() {
         Label header = new Label("My Results");
         Button currentResults = new Button("Current Results");
@@ -210,7 +224,13 @@ public class Menu extends Application {
         currentResults.setMinWidth(200);
         transcript.setMinWidth(200);
         currentResults.setOnAction(e -> stage.setScene(currentResults()));
-        transcript.setOnAction(e -> stage.setScene(studentTranscript()));
+        transcript.setOnAction(e -> {
+            try {
+                stage.setScene(studentTranscript());
+            } catch (NumberFormatException | FileNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        });
 
         return layout;
     }
@@ -249,31 +269,23 @@ public class Menu extends Application {
 
     private VBox options() {
         Label header = new Label("Options");
-        Button pwChange = new Button("Change Password");
-        Button details = new Button("View/Edit Personal Details");
-        Button emailChange = new Button("Update Email Address");
+        Button details = new Button("View Personal Details");
         Button logout = new Button("Logout");
         logout.setOnAction(e -> logout());
 
-        VBox layout = new VBox(header,
-                pwChange,
-                details,
-                emailChange,
-                logout);
+        VBox layout = new VBox( header,
+                                details,
+                                logout);
 
         layout.setAlignment(Pos.CENTER_LEFT);
         layout.setSpacing(6);
         layout.setMinSize(100, 100);
         layout.setStyle("-fx-padding: 10;");
         header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-        pwChange.setMinWidth(200);
         details.setMinWidth(200);
-        emailChange.setMinWidth(200);
         logout.setMinWidth(200);
 
-        pwChange.setOnAction(e -> stage.setScene(changePassword()));
         details.setOnAction(e -> stage.setScene(personalDetails()));
-        emailChange.setOnAction(e -> stage.setScene(updateEmail()));
         logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event){
@@ -288,53 +300,26 @@ public class Menu extends Application {
         return new Scene(null);
     }
 
-    private Scene studentTranscript() {
+    private Scene studentTranscript() throws NumberFormatException, FileNotFoundException {
 
-        return new Scene(null);
-    }
+        TextArea transcript = new TextArea(recsysObj.transcript());
+        
+        Label header = new Label("Student Transcript");
 
-    private Scene changePassword() {
-        Button home = new Button("Home");
-        home.setOnAction(e -> stage.setScene(homeMenu()));
-        Button go = new Button("Go");
-        // this should be changed to actually change the password
-        go.setOnAction(e -> stage.setScene(homeMenu()));
+        transcript.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        ScrollPane scrollPane = new ScrollPane(transcript);
+        scrollPane.setPrefSize(minWidth, minHeight);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        BorderPane root = new BorderPane();
+        root.setTop(header);
+        root.setCenter(scrollPane); 
 
-        Label header = new Label("Change Password");
-        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20));
+        transcript.setFont(Font.font("Consolas"));
+        root.setStyle("-fx-padding: 10;");
+        header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
 
-        Label old = new Label("Old Password");
-        Label newPlabel = new Label("New Password");
-        Label confirm = new Label("Confirm New Password");
-        old.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-        newPlabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-        confirm.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-        old.setTextFill(Color.web("#FF0000"));
-        newPlabel.setTextFill(Color.web("#FF0000"));
-        confirm.setTextFill(Color.web("#FF0000"));
-
-        PasswordField oldpw = new PasswordField();
-        PasswordField newpw = new PasswordField();
-        PasswordField confirmpw = new PasswordField();
-
-        VBox layout = new VBox(
-                home,
-                new Label(""), // this is here to act as a blank space
-                header,
-                old,
-                oldpw,
-                newPlabel,
-                newpw,
-                confirm,
-                confirmpw,
-                go);
-
-        layout.setAlignment(Pos.CENTER_LEFT);
-        layout.setSpacing(6);
-        layout.setMinSize(600, 500);
-        layout.setStyle("-fx-padding: 180;");
-
-        return new Scene(layout, minWidth, minHeight);
+        return new Scene(root, minWidth, minHeight);
     }
 
     private Scene personalDetails() {
@@ -342,54 +327,8 @@ public class Menu extends Application {
         header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20));
 
         // this is going to need so many labels and textfields
-        Label title = new Label();
 
         return new Scene(null);
-    }
-
-    private Scene updateEmail() {
-        Button home = new Button("Home");
-        home.setOnAction(e -> stage.setScene(homeMenu()));
-        Button go = new Button("Go");
-        // this should be changed to actually change the email
-        go.setOnAction(e -> stage.setScene(homeMenu()));
-
-        Label header = new Label("Change Email");
-        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20));
-
-        Label old = new Label("Old Email");
-        Label newPlabel = new Label("New Email");
-        Label confirm = new Label("Confirm New Email");
-
-        old.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-        newPlabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-        confirm.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-        old.setTextFill(Color.web("#FF0000"));
-        newPlabel.setTextFill(Color.web("#FF0000"));
-        confirm.setTextFill(Color.web("#FF0000"));
-
-        TextField oldpw = new TextField();
-        TextField newpw = new TextField();
-        TextField confirmpw = new TextField();
-
-        VBox layout = new VBox(
-                home,
-                new Label(""), // this is here to act as a blank space
-                header,
-                old,
-                oldpw,
-                newPlabel,
-                newpw,
-                confirm,
-                confirmpw,
-                go);
-
-        layout.setAlignment(Pos.CENTER_LEFT);
-        layout.setSpacing(6);
-        layout.setMinSize(600, 500);
-        layout.setStyle("-fx-padding: 180;");
-
-        return new Scene(layout, minWidth, minHeight);
     }
 
     private void cleanup(){
@@ -397,11 +336,6 @@ public class Menu extends Application {
         loginPW = "";
     }
 
-    // the idea for a sign out button is to allow the user to log out and sign in as
-    // someone else
-    // this would probably need to restart the program?
-    // tried doing that here but I could not figure out how to direct the 'login'
-    // action to calling this method
     private void logout() {
         cleanup();
         stage.setScene(startup());

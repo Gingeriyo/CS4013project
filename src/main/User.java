@@ -1,12 +1,6 @@
 package main;
 
 public abstract class User {
-    // This is the parent class for all types of users.
-    // A user is used alongside execution to determine what permissions
-    // they have.
-
-    // should this class be an abstract class?
-
     private String[] titles = { "Mr.", "Mrs.", "Mx." };
     private int myTitle;
     private String firstName;
