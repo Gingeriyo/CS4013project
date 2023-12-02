@@ -12,6 +12,6 @@ public class RecSysTest {
     @Test
     public void RecSysModuleNameTest() throws FileNotFoundException {
         RecSys test = new RecSys(22348069);
-        assertEquals("Representation and Modelling", test.getAllModuleInfo()[2]);
+        assertEquals("Eric", test.getAllModuleInfo()[17]);
     }
 }

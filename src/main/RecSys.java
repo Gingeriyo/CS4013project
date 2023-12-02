@@ -8,6 +8,7 @@ public class RecSys {
     StudentGrades student;
     ArrayList<Semester> semesters = new ArrayList<Semester>();
 
+    // RecSys constructor that makes multiple semester objects for the one student.
     public RecSys(int id) throws FileNotFoundException {
         student = new StudentGrades(id, "src/csv/students.csv", "src/csv/grades.csv");
         for (int i = 0; i < student.getNumberOfSemesters(); i++) {
@@ -15,6 +16,10 @@ public class RecSys {
         }
     }
 
+    // Iterates through the semester's module arraylists to get the modules
+    // names, codes and credits.
+    // The string array is in the format as follows:
+    // "Module code", "Module credits", "Module name"
     public String[] getAllModuleInfo() {
         String temp = "";
         ArrayList<Module> mods;
