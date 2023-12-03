@@ -76,7 +76,7 @@ public class Faculty extends User {
             while(s.hasNextLine()) {
                 String [] parts = s.nextLine().split(",");
                 if(nomore == false){
-                if(parts[pos-position -3]!= courseCode) {
+                if(!parts[pos-position -3].equals(courseCode) ) {
                     for(int i = pos;i<parts.length;i++) {
                         if(parts[i].equals(courseCode)) {
                             pos= i+3+ (semNum* length)+4*(1+(semNum-1))+position;
