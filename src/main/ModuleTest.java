@@ -32,6 +32,7 @@ public class ModuleTest {
 
     @Test
     public void changeGrade() {
-        Faculty.updateGrade("22348069", "LM115", 0, "CH4701", 40);
+        Faculty test = new Faculty();
+        test.updateGrade("92546743","AQ822",0, "CH4701",99);
     }
 }

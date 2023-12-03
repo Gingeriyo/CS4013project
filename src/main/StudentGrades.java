@@ -19,6 +19,7 @@ public class StudentGrades extends Student {
     // The 2nd is the course code.
     // The 3rd is the number of the semester out of the duration of the course (starts from 0).
     ArrayList<String[]> grades = new ArrayList<String[]>();
+    ArrayList<String[]> comments = new ArrayList<String[]>();
 
     /**
      * The constructor for a StudentGrades object.
@@ -61,9 +62,12 @@ public class StudentGrades extends Student {
         super(id, studentInfoPath);
         String gradeID = Integer.toString(id);
         Scanner gradeReader = new Scanner(new File(gradesPath));
+        Scanner commentReader = new Scanner(new File("src/csv/comments.csv"));
         gradeReader.useDelimiter(",");
+        commentReader.useDelimiter(",");
         boolean reading = true;
         String temp;
+        String temp2;
 
         while (reading) {
             temp = gradeReader.next();
@@ -72,6 +76,19 @@ public class StudentGrades extends Student {
                 String[] gradeDetails = (gradeReader.nextLine()).replace(gradeID + ",", "").split(" ");
                 for (int i = 0; i < gradeDetails.length; i++) {
                     grades.add(gradeDetails[i].split(","));
+                }
+                reading = false;
+            }
+        }
+
+        reading = true;
+        while (reading) {
+            temp2 = commentReader.next();
+            
+            if (gradeID.equals(temp2.replace("\n", ""))) {
+                String[] commentDetails = (commentReader.nextLine()).replace(gradeID + ",", "").split(";");
+                for (int i = 0; i < commentDetails.length; i++) {
+                    comments.add(commentDetails[i].split(","));
                 }
                 reading = false;
             }
@@ -99,6 +116,14 @@ public class StudentGrades extends Student {
         String[] temp = new String[grades.get(sem).length - 4];
         for (int i = 0; i < temp.length; i++) {
             temp[i] = grades.get(sem)[i + 4];
+        }
+        return temp;
+    }
+    
+    public String[] getComments(int sem) {
+        String[] temp = new String[comments.get(sem).length - 4];
+        for (int i = 0; i < temp.length; i++) {
+            temp[i] = comments.get(sem)[i + 4];
         }
         return temp;
     }

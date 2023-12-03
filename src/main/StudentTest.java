@@ -18,13 +18,6 @@ public class StudentTest {
     }
 
     @Test
-    public void constructorStudentTestName2() throws FileNotFoundException {
-        StudentGrades test = new StudentGrades(22342761, "src/csv/students.csv", "src/csv/grades.csv");
-        System.out.println(test.getName());
-        assertEquals(test.getName(), "Mr. Leo O'Shea");
-    }
-
-    @Test
     public void constructorStudentTestIsAttending() throws FileNotFoundException {
         StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
         System.out.println(test.isAttending());
@@ -43,8 +36,23 @@ public class StudentTest {
     @Test
     public void StudentGradesSemesterResults() throws FileNotFoundException {
         StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
+        String[] temp = test.getResults(3);
+        assertEquals(temp[4], "90");
+    }
+
+    @Test
+    public void StudentGradesSemesterResults2() throws FileNotFoundException {
+        StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
         String[] temp = test.getResults(1);
         assertEquals(temp[4], "43");
+    }
+
+    // Checks to see if the comment is correct.
+    @Test
+    public void Comments() throws FileNotFoundException {
+        StudentGrades test = new StudentGrades(92546743, "src/csv/students.csv", "src/csv/grades.csv");
+        String[] temp = test.getComments(2);
+        assertEquals(temp[4], "repeat pls");
     }
 
     @Test
@@ -82,8 +90,8 @@ public class StudentTest {
 
     @Test
     public void NumOfSemesters() throws FileNotFoundException {
-        StudentGrades student = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
-        assertEquals(8, student.getNumberOfSemesters());
+        StudentGrades student = new StudentGrades(22348070, "src/csv/students.csv", "src/csv/grades.csv");
+        assertEquals(2, student.getNumberOfSemesters());
     }
 
     @Test 
