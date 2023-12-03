@@ -73,56 +73,10 @@ public class Menu extends Application {
         return new Scene(layout, minWidth, minHeight);
     }
 
-    private Scene facultyLogin() {
-        Label header = new Label("Portal Login");
-        Button loginButton = new Button("Double Click to Login!");
-        Label idLabel = new Label("EMAIL:");
-        Label pwLabel = new Label("PASSWORD:");
-        TextField idHere = new TextField("");
-        PasswordField pwHere = new PasswordField();
-        Label failure = new Label("");
+    // --------------------------------------------------------------------------------------------------
+    //                                  Student Methods
+    // --------------------------------------------------------------------------------------------------
 
-        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20));
-        idLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-        pwLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-        idLabel.setTextFill(Color.web("#FF0000"));
-        pwLabel.setTextFill(Color.web("#FF0000"));
-        loginButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event){
-                try {
-                    loginObj = new Login((idHere.getText()), (pwHere.getText()));
-                    if (loginObj.read()){
-                        loginID = idHere.getText();
-                        loginPW = pwHere.getText();
-                        loginButton.setOnAction(e -> stage.setScene(facultyHomeMenu())); 
-                    } else{
-                        failure.setText("Login Failed");
-                        loginButton.setOnAction(e -> stage.setScene(facultyLogin())); 
-                    }
-                } catch (NumberFormatException | FileNotFoundException e) {
-                    failure.setText("Login Failed");
-                }
-            }
-        });
-
-        VBox layout = new VBox(
-                header,
-                new Label(""), // this is here to act as a blank space
-                idLabel,
-                idHere,
-                pwLabel,
-                pwHere,
-                loginButton,
-                failure);
-
-        layout.setAlignment(Pos.CENTER_LEFT);
-        layout.setSpacing(6);
-        layout.setMinSize(600, 500);
-        layout.setStyle("-fx-padding: 180;");
-
-        return new Scene(layout, minWidth, minHeight);
-    }
 
     private Scene studentLogin() {
         Label header = new Label("Portal Login");
@@ -196,26 +150,6 @@ public class Menu extends Application {
         return new Scene(layout, minWidth, minHeight);
     }
 
-    private Scene facultyHomeMenu(){
-        GridPane layout = new GridPane();
-
-        Label header = new Label("Home");
-
-        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20));
-
-        layout.add(header, 0, 1); // col, row
-        layout.add(editStudent(), 0, 2);
-        layout.add(options(), 0, 3);
-
-        layout.setStyle("-fx-padding: 20;");
-        layout.getColumnConstraints().add(new ColumnConstraints((minWidth / 2) - 50));
-        layout.getColumnConstraints().add(new ColumnConstraints((minWidth / 2) - 50));
-        layout.setVgap(20);
-        layout.setHgap(20);
-
-        return new Scene(layout, minWidth, minHeight);
-    }
-
     private VBox myResults() {
         Label header = new Label("My Results");
         Button transcript = new Button("Student Transcript");
@@ -238,6 +172,174 @@ public class Menu extends Application {
         });
 
         return layout;
+    }
+
+    private VBox myModules() {
+        Label header = new Label("Current Modules");
+
+        VBox layout = new VBox(header, modules());
+        layout.setAlignment(Pos.CENTER_LEFT);
+        layout.setSpacing(6);
+        layout.setMinSize(100, 100);
+        layout.setStyle("-fx-padding: 10;");
+        header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+
+        return layout;
+    }
+
+    private Label modules(){
+        RecSys modulesString;
+
+        Label current = new Label();
+
+        try {
+        modulesString = new RecSys(Integer.parseInt(loginID));
+        
+        String list = "Module, Credits, Module Name\n" + modulesString.getModulesInfo(modulesString.getLastSemesterNum());
+        
+        current = new Label(list);
+        current.setFont(Font.font("Consolas"));
+
+        } catch (NumberFormatException | FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return current;
+    }
+
+    private VBox options() {
+        Label header = new Label("Options");
+        Button details = new Button("View Personal Details");
+        Button logout = new Button("Logout");
+        logout.setOnAction(e -> logout());
+
+        VBox layout = new VBox( header,
+                                details,
+                                logout);
+
+        layout.setAlignment(Pos.CENTER_LEFT);
+        layout.setSpacing(6);
+        layout.setMinSize(100, 100);
+        layout.setStyle("-fx-padding: 10;");
+        header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+        details.setMinWidth(200);
+        logout.setMinWidth(200);
+
+        details.setOnAction(e -> stage.setScene(personalDetails()));
+        logout.setOnAction(e -> logout());
+        
+        return layout;
+    }
+
+    private Scene studentTranscript() throws NumberFormatException, FileNotFoundException {
+
+        recsysObj = new RecSys(Integer.parseInt(loginID));
+        TextArea transcript = new TextArea(recsysObj.transcript());
+        
+        Label header = new Label("Student Transcript");
+        Button home = new Button("home");
+        home.setOnAction(e -> stage.setScene(studentHomeMenu()));
+
+        transcript.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        ScrollPane scrollPane = new ScrollPane(transcript);
+        scrollPane.setPrefSize(minWidth, minHeight);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        BorderPane root = new BorderPane();
+        root.setBottom(home);
+        root.setTop(header);
+        root.setCenter(scrollPane); 
+
+        transcript.setEditable(false);
+        transcript.setFont(Font.font("Consolas", 12));
+        root.setStyle("-fx-padding: 10;");
+        header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+
+        return new Scene(root, minWidth, minHeight);
+    }
+
+    private Scene personalDetails() {
+        Label header = new Label("Personal Details");
+        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20));
+
+        // this is going to need so many labels and textfields
+
+        return new Scene(null);
+    }
+
+    // --------------------------------------------------------------------------------------------------
+    //                                  Faculty Methods
+    // --------------------------------------------------------------------------------------------------
+
+    private Scene facultyLogin() {
+        Label header = new Label("Portal Login");
+        Button loginButton = new Button("Double Click to Login!");
+        Label idLabel = new Label("EMAIL:");
+        Label pwLabel = new Label("PASSWORD:");
+        TextField idHere = new TextField("");
+        PasswordField pwHere = new PasswordField();
+        Label failure = new Label("");
+
+        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20));
+        idLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+        pwLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+        idLabel.setTextFill(Color.web("#FF0000"));
+        pwLabel.setTextFill(Color.web("#FF0000"));
+        loginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event){
+                try {
+                    loginObj = new Login((idHere.getText()), (pwHere.getText()));
+                    if (loginObj.read()){
+                        loginID = idHere.getText();
+                        loginPW = pwHere.getText();
+                        loginButton.setOnAction(e -> stage.setScene(facultyHomeMenu())); 
+                    } else{
+                        failure.setText("Login Failed");
+                        loginButton.setOnAction(e -> stage.setScene(facultyLogin())); 
+                    }
+                } catch (NumberFormatException | FileNotFoundException e) {
+                    failure.setText("Login Failed");
+                }
+            }
+        });
+
+        VBox layout = new VBox(
+                header,
+                new Label(""), // this is here to act as a blank space
+                idLabel,
+                idHere,
+                pwLabel,
+                pwHere,
+                loginButton,
+                failure);
+
+        layout.setAlignment(Pos.CENTER_LEFT);
+        layout.setSpacing(6);
+        layout.setMinSize(600, 500);
+        layout.setStyle("-fx-padding: 180;");
+
+        return new Scene(layout, minWidth, minHeight);
+    }
+
+    private Scene facultyHomeMenu(){
+        GridPane layout = new GridPane();
+
+        Label header = new Label("Home");
+
+        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20));
+
+        layout.add(header, 0, 1); // col, row
+        layout.add(editStudent(), 0, 2);
+        layout.add(options(), 0, 3);
+
+        layout.setStyle("-fx-padding: 20;");
+        layout.getColumnConstraints().add(new ColumnConstraints((minWidth / 2) - 50));
+        layout.getColumnConstraints().add(new ColumnConstraints((minWidth / 2) - 50));
+        layout.setVgap(20);
+        layout.setHgap(20);
+
+        return new Scene(layout, minWidth, minHeight);
     }
 
     private VBox editStudent() {
@@ -362,98 +464,11 @@ public class Menu extends Application {
         return new Scene(layout, minWidth, minHeight);
     }
 
-    private VBox myModules() {
-        Label header = new Label("Current Modules");
 
-        VBox layout = new VBox(header, modules());
-        layout.setAlignment(Pos.CENTER_LEFT);
-        layout.setSpacing(6);
-        layout.setMinSize(100, 100);
-        layout.setStyle("-fx-padding: 10;");
-        header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-
-        return layout;
-    }
-
-    private Label modules(){
-        RecSys modulesString;
-
-        Label current = new Label();
-
-        try {
-        modulesString = new RecSys(Integer.parseInt(loginID));
-        
-        String list = "Module, Credits, Module Name\n" + modulesString.getModulesInfo(modulesString.getLastSemesterNum());
-        
-        current = new Label(list);
-        current.setFont(Font.font("Consolas"));
-
-        } catch (NumberFormatException | FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return current;
-    }
-
-    private VBox options() {
-        Label header = new Label("Options");
-        Button details = new Button("View Personal Details");
-        Button logout = new Button("Logout");
-        logout.setOnAction(e -> logout());
-
-        VBox layout = new VBox( header,
-                                details,
-                                logout);
-
-        layout.setAlignment(Pos.CENTER_LEFT);
-        layout.setSpacing(6);
-        layout.setMinSize(100, 100);
-        layout.setStyle("-fx-padding: 10;");
-        header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-        details.setMinWidth(200);
-        logout.setMinWidth(200);
-
-        details.setOnAction(e -> stage.setScene(personalDetails()));
-        logout.setOnAction(e -> logout());
-        
-        return layout;
-    }
-
-    private Scene studentTranscript() throws NumberFormatException, FileNotFoundException {
-
-        recsysObj = new RecSys(Integer.parseInt(loginID));
-        TextArea transcript = new TextArea(recsysObj.transcript());
-        
-        Label header = new Label("Student Transcript");
-        Button home = new Button("home");
-        home.setOnAction(e -> stage.setScene(studentHomeMenu()));
-
-        transcript.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
-        ScrollPane scrollPane = new ScrollPane(transcript);
-        scrollPane.setPrefSize(minWidth, minHeight);
-        scrollPane.setFitToHeight(true);
-        scrollPane.setFitToWidth(true);
-        BorderPane root = new BorderPane();
-        root.setBottom(home);
-        root.setTop(header);
-        root.setCenter(scrollPane); 
-
-        transcript.setEditable(false);
-        transcript.setFont(Font.font("Consolas", 12));
-        root.setStyle("-fx-padding: 10;");
-        header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-
-        return new Scene(root, minWidth, minHeight);
-    }
-
-    private Scene personalDetails() {
-        Label header = new Label("Personal Details");
-        header.setFont(Font.font("Verdana", FontWeight.EXTRA_BOLD, 20));
-
-        // this is going to need so many labels and textfields
-
-        return new Scene(null);
-    }
+    
+    // --------------------------------------------------------------------------------------------------
+    //                                      General
+    // --------------------------------------------------------------------------------------------------
 
     private void cleanup(){
         loginID = "";
