@@ -109,8 +109,15 @@ public class Semester {
         }
     }
 
-    // This method will add the grades from a string of results to the
-    // Grades ArrayList.
+    /**
+     * This method calculates the results inside a semester object and converts
+     * them to grades that can be displayed on the transcript. These results by the
+     * modules contained within the semester object and must be in correct order
+     * to work. The first result in the String array parameter must be for the first
+     * module in the associated semester in the course.csv file. This method must be
+     * called if the user wishes to print a student transcript.
+     * @param results The string array containing the results.
+     */
     public void gradeCalc(String[] results) {
         int p = 0;
         for (int i = 0; i < mods.size(); i++) {
@@ -136,8 +143,12 @@ public class Semester {
         return this.Grade.get(name);
     }
 
-    // Calculates the QCA for a semester.
-    //did one quick change here it should be called QCS not QPV Thats something else
+    /**
+     * This method returns the QCA for this semester.
+     * The gradeCalc() method must be called before hand for this method to work.
+     * It uses a standard formula for calculating a QCA.
+     * @return a douhle containing the QCA for this semester.
+     */
     public double QCACalc() {
         double result = 0;
         double scale = 0;
@@ -154,6 +165,10 @@ public class Semester {
         return result;
     }
 
+    /**
+     * This method prints every grade the student has earned within this semester.
+     * @return A single string if grades separated by spaces.
+     */
     public String getGrades() {
         String temp = "";
         for (String s : Grades) {

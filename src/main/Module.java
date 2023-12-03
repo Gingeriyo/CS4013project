@@ -10,6 +10,19 @@ public class Module {
     private String moduleCode;
     private int[] markingScheme = new int[12];
 
+    /**
+     * This is the constructor for the Module class.
+     * It takes in parameters via a csv file filled with information about modules.
+     * 
+     * The csv file contains the grade to mark scheme for modules. Every module must include
+     * "NG", "F", "D2", "D1", "C3", "C2", "C1", "B3", "B2", "B1", "A2" and "A1" grades.
+     * The 1st token after the module code represents the credits of the module.
+     * The numbers after correspond to each grade respectively.
+     * Dissertations and thesis also fall under this category.
+     * @param code The module code.
+     * @param path The file path to the csv file.
+     * @throws FileNotFoundException
+     */
     public Module(String code, String path) throws FileNotFoundException {
         Scanner modReader = new Scanner(new File(path));
         modReader.useDelimiter(",");

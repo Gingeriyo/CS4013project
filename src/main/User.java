@@ -39,6 +39,14 @@ public abstract class User {
         eircode;
     }
 
+    /**
+     * A static method used for changing the password of a logged in User.
+     * It must take a variety of parameters, including the old password, the new password
+     * and the username.
+     * @param oldPassword
+     * @param newPassword
+     * @param username
+     */
     public static void changePassword(String oldPassword,String newPassword,String username) {
         try{
         //this checks if student or teacher by checking if email or not

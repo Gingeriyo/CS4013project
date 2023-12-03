@@ -48,6 +48,15 @@ public class Faculty extends User {
         return phoneNumber;
     }
 
+    /**
+     * This method changes the result of a student's module. The results are stored in a near
+     * identical way to comments.csv. The method is near identical to that of changing the comment.
+     * @param id The ID of the student to add a result to.
+     * @param courseCode The course the semester is associated with.
+     * @param semNum The semester number.
+     * @param modCode The code of the module you want to assign the grade for.
+     * @param Grade The result you want to add, as a double.
+     */
     public void updateGrade(String id,String courseCode,int semNum,String modCode,double Grade) {
         try {
             Scanner s = new Scanner(new File("src/csv/grades.csv"));
@@ -141,6 +150,15 @@ public class Faculty extends User {
 
     }
 
+    /**
+     * This method adds a comment to the result of a student's module. The comments are stored in a near
+     * identical way to grades.csv. The method is near identical to that of changing the grade.
+     * @param id The ID of the student to add a comment to.
+     * @param courseCode The course the semester is associated with.
+     * @param semNum The semester number.
+     * @param modCode The code of the module you want to assign the comment for.
+     * @param comment The comment you want to add (e.g. Repeatable, link in to CS4004, etc.).
+     */
     public void updateComment(String id,String courseCode,int semNum,String modCode,String comment) {
         try {
             Scanner s = new Scanner(new File("src/csv/comments.csv"));
