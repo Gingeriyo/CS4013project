@@ -1,7 +1,6 @@
 package main;
 
 import java.io.FileNotFoundException;
-
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.geometry.NodeOrientation;
@@ -254,11 +253,24 @@ public class Menu extends Application {
     private VBox options() {
         Label header = new Label("Options");
         Button details = new Button("View Personal Details");
+        Button password = new Button("Change password");
         Button logout = new Button("Logout");
         logout.setOnAction(e -> logout());
+        password.setOnAction(e -> {
+            try {
+                if(loginID.contains("@")){
+                stage.setScene(changeFacultyPassword());
+                } else{
+                    stage.setScene(changePassword());
+                }
+            } catch (NumberFormatException | FileNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        });
 
         VBox layout = new VBox( header,
                                 details,
+                                password,
                                 logout);
 
         layout.setAlignment(Pos.CENTER_LEFT);
@@ -268,6 +280,7 @@ public class Menu extends Application {
         header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
         details.setMinWidth(200);
         logout.setMinWidth(200);
+        password.setMinWidth(200);
 
         details.setOnAction(e -> {
             try {
@@ -279,6 +292,48 @@ public class Menu extends Application {
         logout.setOnAction(e -> logout());
         
         return layout;
+    }
+
+    /**
+     * allows user to change their password 
+     * @return returns scene
+     * @throws NumberFormatException if parse fails
+     * @throws FileNotFoundException if csv file can not be found
+     */
+    private Scene changePassword() throws NumberFormatException, FileNotFoundException{
+        Label header = new Label("Change Password");
+        Label oldPW = new Label("Current Password");
+        Label newPW = new Label("New password");
+        Label status = new Label();
+        PasswordField inputOld = new PasswordField();
+        PasswordField inputNew = new PasswordField();
+        Button home = new Button("Home");
+        Button go = new Button("Go");
+
+        loginObj = new Login(Integer.parseInt(loginID), loginPW);
+        loginObj.read();
+
+        go.setOnAction(e -> {
+            if(loginPW.equals(inputOld.getText())){
+                loginObj.changePassword(inputNew.getText());
+                status.setText("Password Update Succesful!");
+            } else {
+                status.setText("Inputted Current Password is incorrect.");
+            }
+        });
+        home.setOnAction(e -> stage.setScene(studentHomeMenu()));
+
+        VBox layout = new VBox( home, header,
+                                oldPW, inputOld,
+                                newPW, inputNew, go, status);
+
+        layout.setAlignment(Pos.CENTER_LEFT);
+        layout.setSpacing(6);
+        layout.setMinSize(100, 100);
+        layout.setStyle("-fx-padding: 40;");
+        header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+
+        return new Scene(layout, minWidth, minHeight);
     }
 
     /**
@@ -513,7 +568,6 @@ public class Menu extends Application {
      * @throws FileNotFoundException
      */
     private Scene facultyViewTranscript(int id) throws NumberFormatException, FileNotFoundException {
-
         recsysObj = new RecSys(id);
         TextArea transcript = new TextArea(recsysObj.transcript());
         
@@ -561,7 +615,7 @@ public class Menu extends Application {
         Label l4 = new Label("Module Code");
         Label l5 = new Label("Student's Result");
 
-        Button home = new Button("home");
+        Button home = new Button("Home");
         home.setOnAction(e -> stage.setScene(facultyHomeMenu()));
         Button go = new Button("Go");
         go.setOnAction(e -> {
@@ -588,6 +642,11 @@ public class Menu extends Application {
         return new Scene(layout, minWidth, minHeight);
     }
 
+    /**
+     * allows faculty to add a comment to a student grade
+     * for example, if a student fails, faculty can put a note saying "Repeat this module!"
+     * @return returns a scene
+     */
     private Scene editStudentComment(){
         Label header = new Label("Edit Student Comment");
         TextField id = new TextField("");
@@ -603,7 +662,7 @@ public class Menu extends Application {
         Label l4 = new Label("Module Code");
         Label l5 = new Label("Student Comment (e.g., Repeat please!)");
 
-        Button home = new Button("home");
+        Button home = new Button("Home");
         home.setOnAction(e -> stage.setScene(facultyHomeMenu()));
         Button go = new Button("Go");
         go.setOnAction(e -> {
@@ -630,7 +689,47 @@ public class Menu extends Application {
         return new Scene(layout, minWidth, minHeight);
     }
 
+    /**
+     * allows user to change their password 
+     * @return returns scene
+     * @throws NumberFormatException if parse fails
+     * @throws FileNotFoundException if csv file can not be found
+     */
+    private Scene changeFacultyPassword() throws NumberFormatException, FileNotFoundException{
+        Label header = new Label("Change Password");
+        Label oldPW = new Label("Current Password");
+        Label newPW = new Label("New password");
+        Label status = new Label();
+        PasswordField inputOld = new PasswordField();
+        PasswordField inputNew = new PasswordField();
+        Button home = new Button("Home");
+        Button go = new Button("Go");
 
+        loginObj = new Login(loginID, loginPW);
+        loginObj.read();
+
+        go.setOnAction(e -> {
+            if(loginPW.equals(inputOld.getText())){
+                loginObj.changePassword(inputNew.getText());
+                status.setText("Password Update Succesful!");
+            } else {
+                status.setText("Inputted Current Password is incorrect.");
+            }
+        });
+        home.setOnAction(e -> stage.setScene(facultyHomeMenu()));
+
+        VBox layout = new VBox( home, header,
+                                oldPW, inputOld,
+                                newPW, inputNew, go, status);
+
+        layout.setAlignment(Pos.CENTER_LEFT);
+        layout.setSpacing(6);
+        layout.setMinSize(100, 100);
+        layout.setStyle("-fx-padding: 40;");
+        header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+
+        return new Scene(layout, minWidth, minHeight);
+    }
 
     // --------------------------------------------------------------------------------------------------
     //

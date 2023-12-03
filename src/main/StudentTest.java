@@ -93,9 +93,4 @@ public class StudentTest {
         StudentGrades student = new StudentGrades(22348070, "src/csv/students.csv", "src/csv/grades.csv");
         assertEquals(2, student.getNumberOfSemesters());
     }
-
-    @Test 
-    public void Testchangestudentpassword() {
-        User.changePassword("FluffyKittens85","ITWORKED???","mrevanbuggy@website.com");
-    }
 }

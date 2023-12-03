@@ -61,6 +61,10 @@ public class Login {
         }
     }
 
+    /**
+     * 
+     * @param new_pw
+     */
     public void changePassword(String new_pw) {
         if (loggedIn) {
             try {
