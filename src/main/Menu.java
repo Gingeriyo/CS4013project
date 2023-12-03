@@ -455,6 +455,7 @@ public class Menu extends Application {
         header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
         transcript.setMinWidth(200);
         editGrades.setMinWidth(200);
+        editComment.setMinWidth(200);
 
         transcript.setOnAction(e -> {
             try {
@@ -593,14 +594,14 @@ public class Menu extends Application {
         TextField courseCode = new TextField("");
         TextField semNumber = new TextField("");
         TextField modCode = new TextField("");
-        TextField result = new TextField("");
+        TextField comment = new TextField("");
         Label status = new Label("");
 
         Label l1 = new Label("Student ID");
         Label l2 = new Label("Course Code");
         Label l3 = new Label("Semester Number (first semester = 0)");
         Label l4 = new Label("Module Code");
-        Label l5 = new Label("Student's Result");
+        Label l5 = new Label("Student Comment (e.g., Repeat please!)");
 
         Button home = new Button("home");
         home.setOnAction(e -> stage.setScene(facultyHomeMenu()));
@@ -608,8 +609,8 @@ public class Menu extends Application {
         go.setOnAction(e -> {
             try {
                 facultyObj = new Faculty();
-                facultyObj.updateGrade(id.getText(), courseCode.getText(), Integer.parseInt(semNumber.getText()), modCode.getText(), Double.valueOf(result.getText()));
-                status.setText("Student's Result Updated!");
+                facultyObj.updateComment(id.getText(), courseCode.getText(), Integer.parseInt(semNumber.getText()), modCode.getText(), comment.getText());
+                status.setText("Student's Comment Added!");
             } catch (NumberFormatException e1) {
                 status.setText("Update Unsuccessful. Please check that your details are correct.");
             }
@@ -617,7 +618,7 @@ public class Menu extends Application {
 
         VBox layout = new VBox(home, header, l1, id, 
                             l2, courseCode, l3, semNumber, 
-                            l4, modCode, l5, result, 
+                            l4, modCode, l5, comment, 
                             go, status);
 
         layout.setAlignment(Pos.CENTER_LEFT);
