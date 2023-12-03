@@ -31,5 +31,5 @@ public abstract class User {
         addressLine3 + ",\n" +
         addressLine4 + "\n" +
         eircode;
-    } 
+    }
 }

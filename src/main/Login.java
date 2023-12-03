@@ -16,7 +16,16 @@ public class Login {
     private String path;
     private boolean loggedIn = false;
     
-    // Student Login (Uses ID)
+    /**
+     * This is the constructor for the Login class.
+     * It accepts a username and password.
+     * Since a student ID can only be an integer and contain no characters,
+     * there are 2 different constructors to discern whether to log in as a student or faculty member,
+     * with this one accepting an integer for students.
+     * @param id the identifier, in this case, an integer.
+     * @param pw the password of the student.
+     * @throws FileNotFoundException
+     */
     public Login(int id, String pw) throws FileNotFoundException {
         path = "src/csv/studentLogin.csv";
         csvReader = new Scanner(new File(path));
@@ -24,7 +33,16 @@ public class Login {
         this.pw = pw;
     }
 
-    // Faculty Login (Uses email)
+    /**
+     * This is the constructor for the Login class.
+     * It accepts a username and password.
+     * Since a student ID can only be an integer and contain no characters,
+     * there are 2 different constructors to discern whether to log in as a student or faculty member,
+     * with this one accepting a String for faculty.
+     * @param id the identifier, in this case, a string.
+     * @param pw the password of the faculty member.
+     * @throws FileNotFoundException
+     */
     public Login(String email, String pw) throws FileNotFoundException {
         path = "src/csv/facultyLogin.csv";
         csvReader = new Scanner(new File(path));
@@ -32,10 +50,11 @@ public class Login {
         this.pw = pw;
     }
 
-    // Call this method to login.
-    // Returns false if no element is found.
-    // Takes the 2 elements from a Login CSV
-    // and checks if they match what was passed in with the constructor.
+    /**
+     * This method returns whether the arguments created with the login object have
+     * worked.
+     * @return true for logging in, false for not.
+     */
     public boolean read() {
         try {
             csvReader.useDelimiter(",");
@@ -62,8 +81,9 @@ public class Login {
     }
 
     /**
-     * 
-     * @param new_pw
+     * This method changes the password of the person signed in.
+     * It can only be done if read() returns true.
+     * @param new_pw the new password the user wants to set.
      */
     public void changePassword(String new_pw) {
         if (loggedIn) {
@@ -99,6 +119,4 @@ public class Login {
             }
         }
     }
-    //i think it works pretty good no probelms from what i can see but 
-    // i didnt heavily test it so tell me if any bugs are found 
 }

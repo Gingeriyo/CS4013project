@@ -93,4 +93,11 @@ public class StudentTest {
         StudentGrades student = new StudentGrades(22348070, "src/csv/students.csv", "src/csv/grades.csv");
         assertEquals(2, student.getNumberOfSemesters());
     }
+
+    @Test 
+    public void Testchangestudentpassword() throws FileNotFoundException {
+        Login test = new Login(22348069, "CoolPassword92");
+        test.read();
+        test.changePassword("Test");
+    }
 }

@@ -5,6 +5,7 @@
 
 # Libraries (JUnit and JavaFX)
 /lib
+/doc
 
 # Microsoft office Lockfiles
 ~$*

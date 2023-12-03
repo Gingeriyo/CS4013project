@@ -8,7 +8,13 @@ public class RecSys {
     StudentGrades student;
     ArrayList<Semester> semesters = new ArrayList<Semester>();
 
-    // RecSys constructor that makes multiple semester objects for the one student.
+    /**
+     * This is the constructor for RecSys.
+     * This class acts as a frontend for the GUI and for the Menu class to instantiate.
+     * It creates a StudentGrades object, and then Semester objects for each semester the student has done.
+     * @param id The ID of the student.
+     * @throws FileNotFoundException
+     */
     public RecSys(int id) throws FileNotFoundException {
         student = new StudentGrades(id, "src/csv/students.csv", "src/csv/grades.csv");
         for (int i = 0; i < student.getNumberOfSemesters(); i++) {
@@ -18,10 +24,10 @@ public class RecSys {
         }
     }
 
-    // Iterates through the semester's module arraylists to get the modules
-    // names, codes and credits.
-    // The string array is in the format as follows:
-    // "Module code", "Module credits", "Module name"
+    /**
+     * This method returns basic information about all of the modules a student has done.
+     * @return A String Array of the details in the order of the module code, the credits and the name.
+     */
     public String[] getAllModuleInfo() {
         String temp = "";
         ArrayList<Module> mods;
@@ -34,8 +40,11 @@ public class RecSys {
         return temp.split(",");
     }
 
-    // Returns information about the modules of a specific Semester.
-    // needs to be changed to use string.format
+    /**
+     * This method returns basic information about all of the modules a student has done ine a single semester.
+     * @param sem The semester to choose from.
+     * @return A String Array of the details in the order of the module code, the credits and the name.
+     */
     public String getModulesInfo(int sem) {
         ArrayList<Module> mods = semesters.get(sem).getModules();
         String temp = "";
@@ -53,6 +62,12 @@ public class RecSys {
         return student;
     }
 
+    /**
+     * This method returns the information about a student.
+     * Most of it is derived from the super constructor in StudentGrades for the Student class.
+     * It is used in combination with transcript() and transcriptSingleSem().
+     * @return A single string of all the information about a student.
+     */
     public String getStudentInfo() {
         String temp = "";
         temp += String.format("%-15s", "Name:") + "|  " + student.getName() + "\n" +
@@ -67,6 +82,15 @@ public class RecSys {
         return semesters.get(sem);
     }
 
+    /**
+     * This method produces information about a semester for use within a transcript.
+     * This includes the module names and credits, the student's grade and the comment
+     * left by a faculty member, telling them whether to repeat the module or link in to a
+     * different module. The QCA for the semester is also represented. This method is used
+     * in combination with transcript and transcriptSingleSem().
+     * @param sem The semester to return the information from.
+     * @return A single string of information.
+     */
     public String transcriptSemesterInfo(int sem) {
         String temp = "";
         Semester tempsem = semesters.get(sem);
@@ -87,10 +111,21 @@ public class RecSys {
         return temp;
     }
 
+    /**
+     * This method returns a transcript for only a single semester.
+     * @param sem The semester to print a transcript from.
+     * @return A single string containing the transcript.
+     */
     public String transcriptSingleSem(int sem) {
         return getStudentInfo() + "\n" + transcriptSemesterInfo(sem);
     }
 
+    /**
+     * This method returns an entire student transcript as a single string.
+     * It calls the transcriptSingleSem() method for each semester the student has done,
+     * and returns the cumulative QCA for the student at the top of the transcript.
+     * @return A single string containing the transcript.
+     */
     public String transcript() {
         String temp = "";
         double QCA = 0.0;
