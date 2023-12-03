@@ -218,11 +218,9 @@ public class Menu extends Application {
 
     private VBox myResults() {
         Label header = new Label("My Results");
-        Button currentResults = new Button("Current Results");
         Button transcript = new Button("Student Transcript");
 
         VBox layout = new VBox(header,
-                currentResults,
                 transcript);
 
         header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
@@ -230,9 +228,7 @@ public class Menu extends Application {
         layout.setSpacing(6);
         layout.setMinSize(100, 100);
         layout.setStyle("-fx-padding: 10;");
-        currentResults.setMinWidth(200);
         transcript.setMinWidth(200);
-        currentResults.setOnAction(e -> stage.setScene(currentResults()));
         transcript.setOnAction(e -> {
             try {
                 stage.setScene(studentTranscript());
@@ -423,13 +419,9 @@ public class Menu extends Application {
         return layout;
     }
 
-    private Scene currentResults() {
-
-        return new Scene(null);
-    }
-
     private Scene studentTranscript() throws NumberFormatException, FileNotFoundException {
 
+        recsysObj = new RecSys(Integer.parseInt(loginID));
         TextArea transcript = new TextArea(recsysObj.transcript());
         
         Label header = new Label("Student Transcript");

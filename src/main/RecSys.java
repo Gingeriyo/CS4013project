@@ -10,15 +10,12 @@ public class RecSys {
 
     // RecSys constructor that makes multiple semester objects for the one student.
     public RecSys(int id) throws FileNotFoundException {
-        student = new StudentGrades(id, "srstringstudents.csv", "src/csv/grades.csv");
+        student = new StudentGrades(id, "src/csv/students.csv", "src/csv/grades.csv");
         for (int i = 0; i < student.getNumberOfSemesters(); i++) {
             Semester adding = new Semester(30, student.getCourseCode(i), student.getSemester(i), "src/csv/course.csv", "src/csv/modules.csv");
             adding.gradeCalc(student.getResults(i));
             semesters.add(adding);
         }
-    }
-
-    public RecSys(String text) {
     }
 
     // Iterates through the semester's module arraylists to get the modules
