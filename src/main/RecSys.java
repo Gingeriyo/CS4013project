@@ -76,7 +76,8 @@ public class RecSys {
             temp += mods.get(i).getClassCode() + "     |  " +
             String.format("%-10s", mods.get(i).getCredit()) + "|  " +
             String.format("%-50s", mods.get(i).getName()) + "|  " +
-            tempsem.getSingleGrade(i) + "\n";
+            String.format("%-5s" ,tempsem.getSingleGrade(i)) +
+            String.format("%-20s", student.getComments(sem)[i]) + "\n";
         }
 
         temp += "--------------------" + "\n" +
@@ -97,6 +98,6 @@ public class RecSys {
             temp += transcriptSemesterInfo(i);
             QCA += semesters.get(i).QCACalc();
         }
-        return getStudentInfo() + String.format("%-15s", "QCA: ") + "|  " + (QCA / semesters.size()) + "\n\n" + temp;
+        return getStudentInfo() + String.format("%-15s", "QCA: ") + "|  " + ((double)Math.round((QCA / semesters.size()) * 100d) / 100d) + "\n\n" + temp;
     }
 }

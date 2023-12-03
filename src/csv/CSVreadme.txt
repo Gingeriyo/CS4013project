@@ -50,3 +50,7 @@ modules.csv: Contains the grade to mark scheme for modules. Every module must in
 The 1st token after the module code represents the credits of the module.
 The numbers after correspond to each grade respectively.
 Dissertations and thesis also fall under this category.
+
+comments.csv: Contains the comments for every module the student has done.
+This acts as a way for the faculty to be able to tell the student to repeat a
+module or not. It has the same syntax as grades.csv, but the grades are replaced by the comments.
