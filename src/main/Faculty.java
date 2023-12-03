@@ -48,7 +48,7 @@ public class Faculty extends User {
         return phoneNumber;
     }
 
-    public static void updateGrade(String id,String courseCode,int semNum,String modCode,double Grade) {
+    public void updateGrade(String id,String courseCode,int semNum,String modCode,double Grade) {
         try {
             Scanner s = new Scanner(new File("src/csv/grades.csv"));
             String write = "";

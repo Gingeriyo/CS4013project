@@ -31,6 +31,8 @@ public class Menu extends Application {
     public String loginID;
     public String loginPW;
     RecSys recsysObj;
+    Login loginObj;
+    Faculty facultyObj;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -89,9 +91,8 @@ public class Menu extends Application {
             @Override
             public void handle(ActionEvent event){
                 try {
-                    Login loginOBJ;
-                    loginOBJ = new Login((idHere.getText()), (pwHere.getText()));
-                    if (loginOBJ.read()){
+                    loginObj = new Login((idHere.getText()), (pwHere.getText()));
+                    if (loginObj.read()){
                         loginID = idHere.getText();
                         loginPW = pwHere.getText();
                         loginButton.setOnAction(e -> stage.setScene(facultyHomeMenu())); 
@@ -141,12 +142,10 @@ public class Menu extends Application {
             @Override
             public void handle(ActionEvent event){
                 try {
-                    Login loginOBJ;
-                    loginOBJ = new Login(Integer.parseInt((idHere.getText())), (pwHere.getText()));
-                    if (loginOBJ.read()){
+                    loginObj = new Login(Integer.parseInt((idHere.getText())), (pwHere.getText()));
+                    if (loginObj.read()){
                         loginID = idHere.getText();
                         loginPW = pwHere.getText();
-                        recsysObj = new RecSys(Integer.valueOf(loginID));
                         loginButton.setOnAction(e -> stage.setScene(studentHomeMenu())); 
                     } else{
                         failure.setText("Login Failed");
@@ -245,13 +244,13 @@ public class Menu extends Application {
         return layout;
     }
 
-    private VBox editStudent(){
+    private VBox editStudent() {
         Label header = new Label("Manage Student Info");
-        Button details = new Button("Edit Student Details");
+        Button transcript = new Button("View Student Transcript");
         Button editGrades = new Button("Edit Student Grades");
         
         VBox layout = new VBox( header,
-                                details,
+                                transcript,
                                 editGrades);
 
         layout.setAlignment(Pos.CENTER_LEFT);
@@ -259,25 +258,112 @@ public class Menu extends Application {
         layout.setMinSize(100, 100);
         layout.setStyle("-fx-padding: 10;");
         header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
-        details.setMinWidth(200);
+        transcript.setMinWidth(200);
         editGrades.setMinWidth(200);
 
-        details.setOnAction(e -> stage.setScene(editStudentDetails()));
+        transcript.setOnAction(e -> {
+            try {
+                stage.setScene(viewStudentTranscript());
+            } catch (NumberFormatException | FileNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        });
         editGrades.setOnAction(e -> stage.setScene(editStudentGrades()));
         
-        return new VBox();
+        return layout;
     }
 
-    private Scene editStudentDetails(){
+    /**
+     * allows faculty to view a specified student's transcript
+     * the student textfield is the desired student's id
+     * the go button is supposed to take the textfield and then regenerate the scene with the transcript
+     * when you click on this in the GUI it does not work
+     */
+    private Scene viewStudentTranscript() throws NumberFormatException, FileNotFoundException{
+        TextField student = new TextField("Insert Student's ID here"); 
+        Label header = new Label("View Student Transcript");
+        Button home = new Button("home");
+        home.setOnAction(e -> stage.setScene(studentHomeMenu()));
+        Button go = new Button("Go");
+        go.setOnAction(e -> {
+            try {
+                stage.setScene(viewStudentTranscript());
+            } catch (NumberFormatException | FileNotFoundException e1) {
+                e1.printStackTrace();
+            }
+        });
 
-        return new Scene(null);
+        ScrollPane sp = new ScrollPane(facultyView(Integer.parseInt(student.getText())));
+
+        BorderPane root = new BorderPane();
+        root.setTop(header);
+        root.setTop(student);
+        root.setTop(go);
+        root.setBottom(home);
+        root.setCenter(sp); 
+
+        root.setStyle("-fx-padding: 10;");
+        header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+
+        return new Scene(root, minWidth, minHeight);
+    }
+
+    private ScrollPane facultyView(int id) throws FileNotFoundException{
+
+        RecSys facultyRecSys = new RecSys(id);
+        TextArea transcript = new TextArea(facultyRecSys.transcript());
+        transcript.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+        ScrollPane scrollPane = new ScrollPane(transcript);
+        scrollPane.setPrefSize(minWidth, minHeight);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setFitToWidth(true);
+        transcript.setEditable(false);
+        transcript.setFont(Font.font("Consolas", 12));
+
+        return scrollPane;
     }
 
     private Scene editStudentGrades(){
+        Label header = new Label("Edit Student Grade");
+        TextField id = new TextField("");
+        TextField courseCode = new TextField("");
+        TextField semNumber = new TextField("");
+        TextField modCode = new TextField("");
+        TextField result = new TextField("");
+        Label status = new Label("");
 
-        
+        Label l1 = new Label("Student ID");
+        Label l2 = new Label("Course Code");
+        Label l3 = new Label("Semester Number");
+        Label l4 = new Label("Module Code");
+        Label l5 = new Label("Student's Result");
 
-        return new Scene(null);
+        Button home = new Button("home");
+        home.setOnAction(e -> stage.setScene(studentHomeMenu()));
+        Button go = new Button("Go");
+        go.setOnAction(e -> {
+            try {
+                facultyObj = new Faculty();
+                facultyObj.updateGrade(id.getText(), courseCode.getText(), Integer.parseInt(semNumber.getText()), modCode.getText(), Double.valueOf(result.getText()));
+                status.setText("Student's Result Updated!");
+            } catch (NumberFormatException e1) {
+                status.setText("Update Unsuccessful. Please check that your details are correct.");
+                e1.printStackTrace();
+            }
+        });
+
+        VBox layout = new VBox(home, header, l1, id, 
+                            l2, courseCode, l3, semNumber, 
+                            l4, modCode, l5, result, 
+                            go, status);
+
+        layout.setAlignment(Pos.CENTER_LEFT);
+        layout.setSpacing(6);
+        layout.setMinSize(100, 100);
+        layout.setStyle("-fx-padding: 10;");
+        header.setFont(Font.font("Verdana", FontWeight.BOLD, 10));
+
+        return new Scene(layout, minWidth, minHeight);
     }
 
     private VBox myModules() {
@@ -304,6 +390,7 @@ public class Menu extends Application {
         String list = "Module, Credits, Module Name\n" + modulesString.getModulesInfo(modulesString.getLastSemesterNum());
         
         current = new Label(list);
+        current.setFont(Font.font("Consolas"));
 
         } catch (NumberFormatException | FileNotFoundException e) {
             e.printStackTrace();
@@ -331,12 +418,8 @@ public class Menu extends Application {
         logout.setMinWidth(200);
 
         details.setOnAction(e -> stage.setScene(personalDetails()));
-        logout.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event){
-                logout();
-            }
-        });
+        logout.setOnAction(e -> logout());
+        
         return layout;
     }
 

@@ -30,8 +30,5 @@ public class ModuleTest {
         assertEquals("CS4012", mod.getClassCode());
     }
 
-    @Test
-    public void changeGrade() {
-        Faculty.updateGrade("22348069", "LM115", 0, "CH4701", 40);
-    }
+    
 }
