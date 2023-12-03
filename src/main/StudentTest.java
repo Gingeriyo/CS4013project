@@ -95,7 +95,9 @@ public class StudentTest {
     }
 
     @Test 
-    public void Testchangestudentpassword() {
-        User.changePassword("FluffyKittens85","ITWORKED???","mrevanbuggy@website.com");
+    public void Testchangestudentpassword() throws FileNotFoundException {
+        Login test = new Login(22348069, "CoolPassword92");
+        test.read();
+        test.changePassword("Test");
     }
 }
