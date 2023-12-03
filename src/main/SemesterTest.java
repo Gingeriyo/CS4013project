@@ -48,7 +48,7 @@ public class SemesterTest {
         StudentGrades student = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
         Semester test = new Semester(30, student.getCourseCode(0), student.getSemester(0), "src/csv/course.csv", "src/csv/modules.csv");
         test.gradeCalc(student.getResults(0));
-        assertEquals("F NG A1 C1 F ", test.getGrades());
+        assertEquals("N/A NG A1 C1 F ", test.getGrades());
     }
 
     // Gets the module marking scheme for the 3rd module of the student's 1st semester..

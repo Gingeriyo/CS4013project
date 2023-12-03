@@ -35,4 +35,10 @@ public class ModuleTest {
         Faculty test = new Faculty();
         test.updateGrade("92546743","AQ822",0, "CH4701",99);
     }
+
+    @Test
+    public void changeComment() {
+        Faculty test = new Faculty();
+        test.updateComment("22348069","LM121",0, "CS4141","repeat pls");
+    }
 }

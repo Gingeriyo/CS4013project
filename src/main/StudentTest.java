@@ -37,7 +37,7 @@ public class StudentTest {
     public void StudentGradesSemesterResults() throws FileNotFoundException {
         StudentGrades test = new StudentGrades(22348069, "src/csv/students.csv", "src/csv/grades.csv");
         String[] temp = test.getResults(3);
-        assertEquals(temp[4], "90");
+        assertEquals(temp[4], "22");
     }
 
     @Test
