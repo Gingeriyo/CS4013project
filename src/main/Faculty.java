@@ -85,7 +85,7 @@ public class Faculty extends User {
             while(s.hasNextLine()) {
                 String [] parts = s.nextLine().split(",");
                 if(nomore == false){
-                if(!parts[pos-position -3].equals(courseCode) ) {
+                if(!parts[pos-position -3].equals(courseCode)&& parts[0].equals(id) ) {
                     for(int i = pos;i<parts.length;i++) {
                         if(parts[i].equals(courseCode)) {
                             pos= i+3+ (semNum* length)+4*(1+(semNum-1))+position;
@@ -105,7 +105,7 @@ public class Faculty extends User {
 
                 
                 parts[pos] = Grade+"";
-                
+                nomore = true;
                 }
                 for(int i  = 0 ;i<parts.length;i++) {
                     write += parts[i]+",";
